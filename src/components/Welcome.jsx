@@ -122,11 +122,11 @@ const Welcome = () => {
 
   const approveUzar = async () => {
     try {
-      const amountToApprove = ethers.utils.parseEther("1000000"); // Amount to approve
+      const amountToApprove = ethers.utils.parseEther("1000000"); 
       const tx = await uzarToken.approve(CONTRACT_ADDRESS, amountToApprove);
-      await tx.wait(); // Wait for the transaction to be mined
+      await tx.wait(); 
       alert("UZAR approved successfully");
-      fetchBalance(uzarToken, contract, account); // Refresh balance and allowance
+      fetchBalance(uzarToken, contract, account); 
     } catch (err) {
       console.error("Error approving UZAR:", err);
     }
@@ -188,11 +188,8 @@ const Welcome = () => {
       const r = await depositWC.calculateWitness(input, 0);
       const commitment = r[1];
       const nullifierHash = r[2];
-  
       const { instance } = await loadWasm();
     
-
-  
       // Prepare the transaction
       const tx = {
         to: tornadoAddress,
@@ -206,7 +203,6 @@ const Welcome = () => {
         method: "eth_sendTransaction",
         params: [tx],
       });
-  
       console.log("Transaction sent. Hash:", txHash);
   
       // Wait for receipt
@@ -216,7 +212,7 @@ const Welcome = () => {
           method: "eth_getTransactionReceipt",
           params: [txHash],
         });
-  
+
         if (!receipt) {
           console.log("Waiting for the transaction receipt...");
           await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -225,7 +221,6 @@ const Welcome = () => {
   
       console.log("Transaction receipt received:", receipt);
   
-      // Decode event log
       if (!receipt.logs || receipt.logs.length === 0) {
         throw new Error("No logs found in the transaction receipt.");
       }
@@ -235,7 +230,6 @@ const Welcome = () => {
       console.log("Decoded Event Data:", JSON.stringify(decodeData));
 
   
-      // Proof elements including the amount
       const proofElements = {
         root: $u.BNToDecimal(decodeData.root),
         nullifierHash: `${nullifierHash}`,
@@ -248,11 +242,7 @@ const Welcome = () => {
       };
   
       console.log("Proof Elements:", proofElements);
-  
-      
-
       const decodedData = tornadoInterface.decodeEventLog("Deposit", log.data, log.topics);
-
       const SnarkJS = window['snarkjs'];
 
       const proofInput = {
@@ -278,34 +268,30 @@ const Welcome = () => {
 
       // Update the proof elements
       updateProofElements(btoa(JSON.stringify(proofInput)));
-
       console.log("Proof inputs:", callInputs)
 
       try {
-        // Generate QR code as a canvas
         const canvas = document.createElement("canvas");
         await QRCode.toCanvas(canvas, (JSON.stringify(proofInput)), {
           // await QRCode.toCanvas(canvas, btoa(JSON.stringify(proofElements)), {
-          errorCorrectionLevel: "L", // High error correction to allow text overlay
-          width: 300, // Set size of QR code
+          errorCorrectionLevel: "L",
+          width: 300, 
         });
 
         const ctx = canvas.getContext("2d");
 
-        // Add the amount text in the middle of the QR code
         const text = "20";
-        ctx.font = "bold 40px Arial"; // Font style
-        ctx.fillStyle = "green"; // Text color
+        ctx.font = "bold 40px Arial"; 
+        ctx.fillStyle = "green"; 
         const textWidth = ctx.measureText(text).width;
 
-        // Position text in the center of the QR code
         ctx.fillText(
           text,
           (canvas.width - textWidth) / 2,
-          canvas.height / 2 + 10 // Slightly lower than vertical center for better alignment
+          canvas.height / 2 + 10 
         );
 
-        // Convert canvas to data URL and update state
+        
         const qrCodeWithAmountURL = canvas.toDataURL();
         setQRCodeURL(qrCodeWithAmountURL);
       } catch (error) {
