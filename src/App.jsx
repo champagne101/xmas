@@ -11,13 +11,9 @@ const App = () => {
     script.async = true;
     script.onload = () => {
       console.log('snarkjs loaded successfully');
-      setIsLoading(false);
-
     };
     script.onerror = (error) => {
       console.error('Error loading snarkjs script:', error);
-      setIsLoading(false); 
-
     };
     document.body.appendChild(script);
     return () => {
@@ -27,14 +23,17 @@ const App = () => {
   
 
   return (
-    <div>
-      <div className="min-h-screen">
-      <AnimatePresence>
+    
+      <div className="min-h-screen relative overflow-hidden">
+      <AnimatePresence mode="wait">
         {showSplash && (
-          <SplashScreen onFinish={() => setShowSplash(false)} />
+          <SplashScreen  key="splash" onFinish={() => setShowSplash(false)} />
         )}
       </AnimatePresence>
-        <div className="gradient-bg-welcome">
+
+        <div className={`min-h-screen transition-opacity duration-500 ${showSplash ? 'opacity-0' : 'opacity-100'}`}
+        style={{ pointerEvents: showSplash ? "none" : "auto"}}>
+          <div className="gradient-bg-welcome">
           <Navbar />
           <Welcome /> 
           {/* <Onramp /> */}
