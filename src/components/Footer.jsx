@@ -8,8 +8,8 @@ const Footer = () => (
   <div className="w-full flex md:justify-center justify-between items-center flex-col p-4 gradient-bg-footer">
     <div className="w-full flex sm:flex-row flex-col justify-between items-center my-4">
       <div className="flex flex-[0.5] justify-center items-center">
-        <img src={light} alt="logo-light" className="w-32 block dark:hidden" />
-        <img src={dark} alt="logo-dark" className="w-32 hidden dark:block" /> 
+        <img src={light} alt="logo-light" className="w-24 block dark:hidden" />
+        <img src={dark} alt="logo-dark" className="w-24 hidden dark:block" /> 
         </div>
       <div className="flex flex-1 justify-evenly items-center flex-wrap sm:mt-0 mt-5 w-full">
         <p className="text-white text-base text-center mx-2 cursor-pointer">Transfer</p>
