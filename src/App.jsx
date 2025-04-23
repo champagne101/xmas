@@ -50,7 +50,7 @@ const App = () => {
         <div className={`min-h-screen transition-opacity duration-500 ${showSplash ? 'opacity-0' : 'opacity-100'}`}
         style={{ pointerEvents: showSplash ? "none" : "auto"}}>
 
-          <div className="gradient-bg-welcome">
+          <div className="gradient-bg-welcome bg-[#f6f7fc] text-[#4681ee] dark:bg-[#244f6b] dark:text-[#fafcfe]">
           <Navbar />
           <Welcome /> 
           {/* <Onramp /> */}

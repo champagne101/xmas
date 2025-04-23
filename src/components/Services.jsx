@@ -9,8 +9,8 @@ const ServiceCard = ({ color, title, icon, subtitle }) => (
       {icon}
     </div>
     <div className="ml-5 flex flex-col flex-1">
-      <h3 className="mt-2 text-white text-lg">{title}</h3>
-      <p className="mt-1 text-white text-sm md:w-9/12">
+      <h3 className="mt-2  text-lg">{title}</h3>
+      <p className="mt-1  text-sm md:w-9/12">
         {subtitle}
       </p>
     </div>
@@ -18,15 +18,15 @@ const ServiceCard = ({ color, title, icon, subtitle }) => (
 );
 
 const Services = () => (
-  <div className="flex w-full justify-center items-center gradient-bg-services">
+  <div className="flex w-full justify-center items-center text-[#4681ee] dark:text-[#fafcfe] gradient-bg-services">
     <div className="flex mf:flex-row flex-col items-center justify-between md:p-20 py-12 px-4">
       <div className="flex-1 flex flex-col justify-start items-start">
-        <h1 className="text-white text-3xl sm:text-5xl py-2 text-gradient ">
+        <h1 className=" text-3xl sm:text-5xl py-2 text-gradient ">
           Services that we
           <br />
           continue to improve
         </h1>
-        <p className="text-left my-2 text-white font-light md:w-9/12 w-11/12 text-base">
+        <p className="text-left my-2  font-light md:w-9/12 w-11/12 text-base">
           The best choice for buying and selling your crypto assets, with the
           various super friendly services we offer
         </p>
@@ -36,19 +36,19 @@ const Services = () => (
         <ServiceCard
           color="bg-[#2952E3]"
           title="Security gurantee"
-          icon={<BsShieldFillCheck fontSize={21} className="text-white" />}
+          icon={<BsShieldFillCheck fontSize={21} className="" />}
           subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
         />
         <ServiceCard
           color="bg-[#8945F8]"
           title="Best exchange rates"
-          icon={<BiSearchAlt fontSize={21} className="text-white" />}
+          icon={<BiSearchAlt fontSize={21} className="" />}
           subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
         />
         <ServiceCard
           color="bg-[#F84550]"
           title="Fastest transactions"
-          icon={<RiHeart2Fill fontSize={21} className="text-white" />}
+          icon={<RiHeart2Fill fontSize={21} className="" />}
           subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
         />
       </div>

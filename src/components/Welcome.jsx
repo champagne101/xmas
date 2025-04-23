@@ -23,7 +23,7 @@ const tornadoAddress = "0x46c321234896293Fae383C9768b338902db6B20E"; // lisk sep
 const tornadoABI = tornadoJSON.abi;
 const tornadoInterface = new ethers.utils.Interface(tornadoABI);
 const ButtonState = { Normal: 0, Loading: 1, Disabled: 2 };
-const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
+const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light ";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -32,7 +32,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     step="0.0001"
     value={value}
     onChange={(e) => handleChange(e, name)}
-    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent  border-none text-sm white-glassmorphism"
   />
 );
 
@@ -535,10 +535,10 @@ const Welcome = () => {
     <div className="flex w-full justify-center items-center">
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
-          <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
+          <h1 className="text-3xl sm:text-5xl text-gradient py-1">
             Send Money <br /> even when offline
           </h1>
-          <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
+          <p className="text-left mt-5  font-light md:w-9/12 w-11/12 text-base">
             Explore the offconnectx world. Buy and sell currencies easily on OffConnectX.
           </p>
           
@@ -548,14 +548,14 @@ const Welcome = () => {
           {!!account ? (
             <div className="container">
           
-              <div className="text-white text-base font-semibold">
+              <div className=" text-base font-semibold">
                   <span><strong>{account.address.slice(0, 12) + "..."}</strong></span>
                   <br/>
                   <span className="small">{account.balance.slice(0, 10) + ((account.balance.length > 10) ? ("...") : (""))} ETH</span>
                   <br/>
-                  <p className="sm:text-2xl text-white text-gradient py-1">UZAR Balance: {uzarBalance}</p>
-                  <p className="text-white text-gradient">Allowance: {allowance}</p>
-                  <button  className=" text-white text-gradient" onClick={approveUzar}>Approve UZAR</button>
+                  <p className="sm:text-2xl  text-gradient py-1">UZAR Balance: {uzarBalance}</p>
+                  <p className=" text-gradient">Allowance: {allowance}</p>
+                  <button  className="  text-gradient" onClick={approveUzar}>Approve UZAR</button>
               </div>
             </div>
             ) : (
@@ -564,8 +564,8 @@ const Welcome = () => {
                 onClick={connectMetamask}
                 className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
               >
-                <AiFillPlayCircle className="text-white mr-2" />
-                <p className="text-white text-base font-semibold">
+                <AiFillPlayCircle className=" mr-2" />
+                <p className=" text-base font-semibold">
                   Connect Wallet
                 </p>
               </button>
@@ -589,7 +589,7 @@ const Welcome = () => {
             </div>
           </div>
 
-          <h1 className="text-white font-light text-sm">Your QR Code</h1>
+          <h1 className=" font-light text-sm">Your QR Code</h1>
             {!isScanned ? (
               <div>
                 <img
@@ -598,12 +598,12 @@ const Welcome = () => {
                   onClick={handleScan} // Simulate scan event on click
                   style={{ cursor: "pointer" }}
                 />
-                <p className="text-white font-light text-sm">Click on the QR Code to simulate scanning.</p>
+                <p className=" font-light text-sm">Click on the QR Code to simulate scanning.</p>
               </div>
             ) : (
               <div>
                 <h1 style={{ color: "red", fontSize: "5rem" }}>X</h1>
-                <p className="text-white font-light text-sm">QR Code has been scanned.</p>
+                <p className=" font-light text-sm">QR Code has been scanned.</p>
               </div>
             )}
 
@@ -613,11 +613,11 @@ const Welcome = () => {
               <div>
                 <img src={qrCodeURL} alt="Custom QR Code" />
                 <br />
-                <button className="text-white font-light text-sm" onClick={downloadQRCode}>Download QR Code</button>
+                <button className=" font-light text-sm" onClick={downloadQRCode}>Download QR Code</button>
               </div>
             )}
-            {isScanned && <p className="text-white font-light text-sm">QR Code has been scanned!</p>}
-            {!qrCodeURL && <p className="text-white font-light text-sm">Loading QR Code...</p>}
+            {isScanned && <p className=" font-light text-sm">QR Code has been scanned!</p>}
+            {!qrCodeURL && <p className=" font-light text-sm">Loading QR Code...</p>}
         </div>
 
         <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
@@ -630,10 +630,10 @@ const Welcome = () => {
                 <BsInfoCircle fontSize={17} color="#fff" />
               </div>
               <div>
-                <p className="text-white font-light text-sm">
+                <p className=" font-light text-sm">
                 {!!account ? (
                   <div className="container">
-                    <div className="text-white text-base font-semibold">
+                    <div className=" text-base font-semibold">
                         <span><strong>{account.address.slice(0, 12) + "..."}</strong></span>
                         <br/>
                         <span className="small">{account.balance.slice(0, 10) + ((account.balance.length > 4) ? ("...") : (""))} ETH</span>
@@ -650,7 +650,7 @@ const Welcome = () => {
                     )
                   }
                 </p>
-                <p className="text-white font-semibold text-lg mt-1">
+                <p className=" font-semibold text-lg mt-1">
                 {uzarBalance} UZAR
                 </p>
               </div>
@@ -663,16 +663,16 @@ const Welcome = () => {
                 <div className="btn-group" style={{ marginBottom: 20 }}>
                       {
                           (section == "Deposit") ? (
-                              <button className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Deposit</button>
+                              <button className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Deposit</button>
                           ) : (
-                              <button onClick={() => { updateSection("Deposit"); }} className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Deposit</button>   
+                              <button onClick={() => { updateSection("Deposit"); }} className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Deposit</button>   
                           )
                       }
                       {
                           (section == "Deposit") ? (
-                              <button onClick={() => { updateSection("Withdraw"); }} className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button> 
+                              <button onClick={() => { updateSection("Withdraw"); }} className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button> 
                           ) : (
-                              <button className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button>
+                              <button className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button>
                           )
                       }
                   </div>
@@ -684,7 +684,7 @@ const Welcome = () => {
                     {
                       (!!proofElements) ? (
                         <div>
-                          <div className="alert alert-success text-white">
+                          <div className="alert alert-success ">
                             <span><strong>Proof of Deposit:</strong></span>
                             <div className="p-1" style={{ lineHeight: "12px" }}>
                               <span style={{ fontSize: 10 }} ref={(proofStringEl) => { updateProofStringEl(proofStringEl); }}>{proofElements}</span>
@@ -692,7 +692,7 @@ const Welcome = () => {
                           </div>
 
                           <div>
-                            <button className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" onClick={copyProof}><span className="small">Copy Proof String</span></button>
+                            <button className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" onClick={copyProof}><span className="small">Copy Proof String</span></button>
                             {
                               (!!displayCopiedMessage) && (
                                 <span className="small" style={{ color: 'green' }}><strong> Copied!</strong></span>
@@ -702,9 +702,9 @@ const Welcome = () => {
                         </div>
                       ) : (
                         <div>
-                          <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">Note: All deposits and withdrawals are of the same denomination of 0.1 UZAR.</p>
+                          <p className="text-left mt-5  font-light md:w-9/12 w-11/12 text-base">Note: All deposits and withdrawals are of the same denomination of 0.1 UZAR.</p>
                           <button 
-                            className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
+                            className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
                             onClick={depositEther}
                             disabled={depositButtonState == ButtonState.Disabled}
                           ><span className="small">Deposit UZAR</span></button>
@@ -724,19 +724,19 @@ const Welcome = () => {
                         <div className="alert alert-success p-3">
                             <div><span><strong>Success!</strong></span></div>
                             <div style={{ marginTop: 5 }}>
-                              <span className="text-secondary text-white">Withdrawal successful.</span>
+                              <span className="text-secondary ">Withdrawal successful.</span>
                             </div>
 
                         </div>
                       </div>
                       ) : (
                       <div>
-                        <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">Note: All deposits and withdrawals are of the same denomination of UZAR.</p>
+                        <p className="text-left mt-5  font-light md:w-9/12 w-11/12 text-base">Note: All deposits and withdrawals are of the same denomination of UZAR.</p>
                         <div className="form-group">
                           <textarea className="form-control" style={{ resize: "none" }} ref={(ta) => { updateTextArea(ta); }}></textarea>
                         </div>
                         <button 
-                          className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
+                          className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
                           onClick={withdraw}
                           disabled={withdrawButtonState == ButtonState.Disabled}
                         ><span className="small">Withdraw UZAR</span></button>
@@ -762,7 +762,7 @@ const Welcome = () => {
                         <div className="alert alert-success p-3">
                             <div><span><strong>Success!</strong></span></div>
                             <div style={{ marginTop: 5 }}>
-                              <span className="text-secondary text-white">Withdrawal successful.</span>
+                              <span className="text-secondary ">Withdrawal successful.</span>
                             </div>
 
                         </div>
@@ -773,7 +773,7 @@ const Welcome = () => {
                           <textarea className="form-control" style={{ resize: "none" }} ref={(ta) => { updateTextArea(ta); }}></textarea>
                         </div>
                         <button 
-                          className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
+                          className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
                           onClick={tester}
                          
                         ><span className="small">Test UZAR Proof</span></button>
