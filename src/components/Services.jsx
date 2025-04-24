@@ -4,37 +4,37 @@ import { BiSearchAlt } from "react-icons/bi";
 import { RiHeart2Fill } from "react-icons/ri";
 
 const ServiceCard = ({ color, title, icon, subtitle }) => (
-  <div className="bg-white dark:bg-[#1a1b1f]/50 backdrop-blur-sm rounded-xl p-6 transition-all duration-300 transform cursor-pointer hover:scale-105 shadow-lg">
-    <div className="flex items-start">
-      <div className={`bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full mr-4 ${color}`}>
-        <div className="text-white">
+  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:bg-white/20 dark:hover:bg-white/10 shadow-lg">
+    <div className="flex items-start gap-4">
+      <div className={`bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full ${color}`}>
+        <div className="text-[#4681ee] dark:text-white">
           {icon}
           </div>
         </div>
         <div>
         <h3 className="mb-2 text-lg font-semibold text-[#4681ee] dark:text-white">{title}</h3>
-        <p className="text-[#4681ee]/70 dark:text-white/70 text-sm">{subtitle}</p>
+        <p className="text-[#4681ee]/70 dark:text-white/70 text-sm  leading-relaxed">{subtitle}</p>
       </div>
     </div>
   </div>
 );
 
 const Services = () => (
-  <section >
+  <section  className="w-full py-16 md:py-24">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex md:flex-row flex-col items-start justify-between gap-12">
-        <div className="flex-1">
-        <h1 className=" text-3xl md:text-4xl font-bold text-[#4681ee] dark:text-white mb-4">
+      {/* <div className="flex md:flex-row flex-col items-start justify-between gap-12"> */}
+        <div className="text-center mb-16">
+        <h2 className=" text-3xl md:text-4xl font-bold text-[#4681ee] dark:text-white mb-4">
           Services that we
           <span className="block">continue to improve</span>
-          </h1>
-        <p className="text-[#4681ee]/70 dark:text-white/70 text-lg max-w-2xl">
+          </h2>
+        <p className="text-[#4681ee]/70 dark:text-white/70 text-lg mx-auto max-w-2xl">
           The best choice for buying and selling your crypto assets, with the
           various super friendly services we offer
         </p>
       </div>
 
-      <div className="flex-1 space-y-6 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <ServiceCard
           color="bg-[#2952E3]"
           title="Security gurantee"
@@ -55,7 +55,7 @@ const Services = () => (
         />
         </div>
       </div>
-    </div>
+    {/* </div> */}
   </section>
 );
 
