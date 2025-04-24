@@ -14,7 +14,7 @@ const Footer = () => (
           <div className="flex items-center mb-4">
             <img src={light} alt="logo-light" className="w-12 block dark:hidden" />
             <img src={dark} alt="logo-dark" className="w-12 hidden dark:block" /> 
-            <span className="ml- text-l font-bold text-[#4681ee] dark:text-white">OffConnectX</span>
+            <span className="ml-2 font-bold text-[#4681ee] dark:text-white">OffConnectX</span>
           </div>
           <p className="text-[#4681ee]/70 dark:text-white/70 text-sm">Secure, fast, and reliable cryptocurrency platform.</p>
         </div>
