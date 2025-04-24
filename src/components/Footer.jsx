@@ -1,17 +1,20 @@
 import React from "react";
+import { RiMailLine } from "react-icons/ri";
+import { BiEnvelope } from "react-icons/bi";
 
 import light from "../../images/light.png";
 import dark from "../../images/dark.png";
 
 
 const Footer = () => (
-  <footer className="w-full py-8 border-t border-[#4681ee]/10 dark:border-white/10 text-[#4681ee] dark:text-[#fafcfe]">
+  <footer className="w-full py-8 border-t border-[#4681ee]/10 dark:border-white/10">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div className="md:col-span-1">
           <div className="flex items-center mb-4">
-            <img src={light} alt="logo-light" className="w-14 block dark:hidden" />
-            <img src={dark} alt="logo-dark" className="w-14 hidden dark:block" /> 
+            <img src={light} alt="logo-light" className="w-12 block dark:hidden" />
+            <img src={dark} alt="logo-dark" className="w-12 hidden dark:block" /> 
+            <span className="ml- text-l font-bold text-[#4681ee] dark:text-white">OffConnectX</span>
           </div>
           <p className="text-[#4681ee]/70 dark:text-white/70 text-sm">Secure, fast, and reliable cryptocurrency platform.</p>
         </div>
@@ -19,10 +22,10 @@ const Footer = () => (
       <div>
         <h3 className="text-[#4681ee] dark:text-white font-medium mb-4">Services</h3>
         <ul className="space-y-2">
-        <li className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors">Transfer</li>
-        <li className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors">Exchange</li>
-        <li className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors">Onramp</li>
-        <li className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors">Wallets</li>
+        <li><a  className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors" href="#">Transfer</a></li>
+        <li><a  className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors" href="#">Exchange</a></li>
+        <li><a  className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors" href="#">Onramp</a></li>
+        <li><a  className=" text-[#4681ee]/70 dark:text-white/70 hover:text-[#4681ee] dark:hover:text-white transition-colors" href="#">Wallets</a></li>
         </ul>
       </div>
 
@@ -36,16 +39,17 @@ const Footer = () => (
           </ul>
         </div>
 
-    <div>
-    <h3 className="text-[#4681ee] dark:text-white font-medium mb-4">Contact</h3>
-    <div className="text-[#4681ee]/70 dark:text-white/70">
-    <a href="mailto:info@offconnectx.com" className="hover:text-[#4681ee] dark:hover:text-white transition-colors">
-      info@offconnectx.com
-    </a>
-    </div>
-      <p className="text-[#4681ee]/70 dark:text-white/70 text-sm mt-2">Come join us and hear for the unexpected miracle</p>
-      {/* <p className=" text-sm text-center font-medium mt-2">info@offconnectx.com</p> */}
-    </div>
+        <div>
+          <h3 className="text-[#4681ee] dark:text-white font-medium mb-4">Contact</h3>
+          <div className="flex items-center mb-2 text-[#4681ee]/70 dark:text-white/70">
+            <RiMailLine className="h-4 w-4 mr-2"/>
+            <a href="mailto:info@offconnectx.com" className="hover:text-[#4681ee] dark:hover:text-white transition-colors">
+              offconnectx@gmail.com
+            </a>
+          </div>
+          <p className="text-[#4681ee]/70 dark:text-white/70 text-sm">Come join us and hear for the unexpected miracle</p>
+          {/* <p className=" text-sm text-center font-medium mt-2">info@offconnectx.com</p> */}
+        </div>
     </div>
 
     <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-[#4681ee]/10 dark:border-white/10">
