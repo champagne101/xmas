@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { FaUserShield, FaLock, FaWifi, FaShieldAlt, FaDollarSign, FaBook } from "react-icons/fa";
 import fs from "fs"; 
 
 //import { TransactionContext } from "../context/TransactionContext";
@@ -23,7 +24,7 @@ const tornadoAddress = "0x46c321234896293Fae383C9768b338902db6B20E"; // lisk sep
 const tornadoABI = tornadoJSON.abi;
 const tornadoInterface = new ethers.utils.Interface(tornadoABI);
 const ButtonState = { Normal: 0, Loading: 1, Disabled: 2 };
-const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-[#4681ee]/20 dark:border-white/20 text-sm font-light text-[#4681ee] dark:text-white/80 hover:bg-[#4681ee]/5 dark:hover:bg-white/5 transition-all duration-300";
+const companyCommonStyles = "bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-300 p-4 flex items-center justify-center flex-col h-32";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -588,22 +589,26 @@ const Welcome = () => {
 
 
   return (
-    <div className="flex w-full justify-center items-center">
-      <div className="flex md:flex-row flex-col items-start justify-between max-w-7xl mx-auto sm:px-6 lg:px-8 md:p-20 py-12 px-4">
-        <div className="flex flex-1 justify-start items-start flex-col md:mr-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4681ee] dark:text-white leading-tight mb-4">
+    <div className="min-h-screen ">
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 md:py-20 py-12 px-4">
+        <div className="flex flex-col lg:flex-row items-start gap-12">
+
+          {/* left column */}
+          <div className="flex-1 space-y-10">
+            {/* hero section */}
+            <div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             Send Money 
             <span className="block">even when offline</span>
           </h1>
-          <p className="text-[#4681ee]/80 dark:text-white/80 text-lg mb-8 md:w-9/12">
+          <p className="text-[#4681ee]/80 dark:text-white/80 text-lg mb-8 max-w-lg">
             Explore the offconnectx world. Buy and sell currencies easily on OffConnectX.
           </p>
-          
-          
 
 
-          {!!account ? (
-            <div className="bg-white dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg w-full max-w-md">
+          {/* Wallet Conn */}
+           {!!account ? (
+            <div className=" dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg w-full max-w-md">
               <div className="space-y-2">
                   <span className="text-lg semi-bold text-[#4681ee] dark:text-white">{account.address.slice(0, 12) + "..."}</span>
                   
@@ -627,67 +632,77 @@ const Welcome = () => {
                 </span>
               </button>
               )}
-            
-          <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10 gap-4">
-            <div className={`rounded-tl-2xl ${companyCommonStyles}`}>Reliability</div>
-            <div className={companyCommonStyles}>Security</div>
-            <div className={`sm:rounded-tr-2xl ${companyCommonStyles}`}>Offline</div>
-            <div className={`sm:rounded-bl-2xl ${companyCommonStyles}`}>Privacy</div>
-            <div className={companyCommonStyles}>Low Fees</div>
-            <div className={`rounded-br-2xl ${companyCommonStyles}`}>Zero Knowledge</div>
+            </div>
+
+            {/* features */}
+               
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                // yet to change icons
+                { icon: <FaUserShield className="h-6 w-6" />, title: 'Reliability' },
+                { icon: <FaLock className="h-6 w-6" />, title: 'Security' },
+                { icon: <FaWifi className="h-6 w-6" />, title: 'Offline' },
+                { icon: <FaShieldAlt className="h-6 w-6" />, title: 'Privacy' },
+                { icon: <FaDollarSign className="h-6 w-6" />, title: 'Low Fees' },
+                { icon: <FaBook className="h-6 w-6" />, title: 'Zero Knowledge' }
+              ].map((feature, index) => (
+                <div key={index} className="bg-white dark:bg-[#1a1b1f]/50 hover:bg-[#4681ee]/5 dark:hover:bg-white/5 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center justify-center h-32 transition-all duration-300">
+                  <div className="mb-2 text-[#4681ee] dark:text-white">{feature.icon}</div>
+                  <h3 className="text-sm md:text-base font-medium">{feature.title}</h3>
+                </div>
+              ))}
+            </div>
+
+
+            {/* qr code section */}
+          <div className="w-full max-w-md">
+            <h2 className="text-xl font-semibold mb-4">Your QR Code</h2>
+              {!isScanned ? (
+                <div className="bg-white dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg">
+                  <img
+                    src={qrCodeURL}
+                    alt="Generated QR Code with Amount"
+                    onClick={handleScan} // Simulate scan event on click
+                    // style={{ cursor: "pointer" }}
+                    className="w-full max-w-xs mx-auto cursor-pointer hover:opacity-90 transition-opacity"
+                  />
+                  <p className="text-[#4681ee]/70 dark:text-white/70 mt-4 text-sm">Click on the QR Code to simulate scanning.</p>
+                </div>
+              ) : (
+                <div className="text-center">
+                  {/* <h1 style={{ color: "red", fontSize: "5rem" }}>X</h1> */}
+                  <div className="text-red-500 text-6xl mb-4">X</div>
+                  <p className="text-[#4681ee]/70 dark:text-white/70">QR Code has been scanned.</p>
+                </div>
+              )}
+          
+              {qrCodeURL && (
+                <div className="mt-4">
+                  <img src={qrCodeURL} alt="Custom QR Code" />
+                  <button className=" mt-2 text-[#4681ee] dark:text-white hover:underline" onClick={downloadQRCode}>Download QR Code</button>
+                </div>
+              )}
+              {isScanned && <p className=" font-light text-sm">QR Code has been scanned!</p>}
+              {!qrCodeURL && <p className="text-[#4681ee]/70 dark:text-white/70">Loading QR Code...</p>}
           </div>
-
-          <div className="mt-10 w-full max-w-md">
-          <h2 className="text-xl font-semibold text-[#4681ee] dark:text-white mb-4">Your QR Code</h2>
-            {!isScanned ? (
-              <div className="bg-white dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg">
-                <img
-                  src={qrCodeURL}
-                  alt="Generated QR Code with Amount"
-                  onClick={handleScan} // Simulate scan event on click
-                  // style={{ cursor: "pointer" }}
-                  className="w-full max-w-xs mx-auto cursor-pointer hover:opacity-90 transition-opacity"
-
-                />
-                <p className="text-[#4681ee]/70 dark:text-white/70 mt-4 text-sm">Click on the QR Code to simulate scanning.</p>
-              </div>
-            ) : (
-              <div className="text-center">
-                {/* <h1 style={{ color: "red", fontSize: "5rem" }}>X</h1> */}
-                <div className="text-red-500 text-6xl mb-4">X</div>
-
-                <p className="text-[#4681ee]/70 dark:text-white/70">QR Code has been scanned.</p>
-              </div>
-            )}
-
-
-        
-            {qrCodeURL && (
-              <div className="mt-4">
-                <img src={qrCodeURL} alt="Custom QR Code" />
-                <br />
-                <button className="text-[#4681ee] dark:text-white hover:underline" onClick={downloadQRCode}>Download QR Code</button>
-              </div>
-            )}
-            {isScanned && <p className=" font-light text-sm">QR Code has been scanned!</p>}
-            {!qrCodeURL && <p className="text-[#4681ee]/70 dark:text-white/70">Loading QR Code...</p>}
-        </div>
         </div>
 
-        <div className="flex flex-col flex-1 items-center justify-start w-full md:mt-0 mt-10">
+
+        {/* right column */}
+        <div className="flex-1  w-full space-y-8">
           <div
-           className="p-6 flex justify-end items-start flex-col rounded-xl sm:w-80 w-full my-5 h-48  overflow-hidden transition-transform  duration-700 ease-in-out hover:rotate-3 "
+           className=" relative rounded-xl sm:w-80 w-full max-w-md mx-auto h-48  overflow-hidden transition-transform  duration-700 ease-in-out hover:rotate-3 "
            style={{
-            background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.7) 0%, rgba(236, 72, 153, 0.7) 100%)',
+            background: 'linear-gradient(135deg, rgba(70, 129, 238, 0.7) 0%, rgba(54, 113, 222, 0.7) 100%)',
             backdropFilter: 'blur(8px)',
             boxShadow: '0 8px 32px rgba(70, 129, 238, 0.2)'
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           >
-            {/* <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div> */}
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
 
-            <div className="flex justify-between flex-col  w-full h-full">
+            <div className="flex justify-between flex-col h-full p-6 relative">
               <div className="flex justify-between items-start">
                 <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center">
                   <SiEthereum fontSize={24} color="#fff" />
@@ -716,14 +731,10 @@ const Welcome = () => {
                     // >
                       
                     // </button>
-                    <div className="text-2xl font-bold text-white mb-1">
-                      0 UZAR
-                    </div>
+                    <div className="text-2xl font-bold text-white mb-1">0 UZAR</div>
                     // null
                     )}
-                     <div className="text-xs text-white/70">
-                    User Balance
-                  </div>
+                     <div className="text-xs text-white/70">User Balance</div>
                 {/* </p> */}
                 {/* <p className=" font-bold text-2xl mt-2">
                 {uzarBalance} UZAR */}
@@ -731,10 +742,12 @@ const Welcome = () => {
                 </div>
               </div>
             </div>
-          </div>
 
 
-          <div className="p-6 sm:w-96 w-fullbg-white dark:bg-[#1a1b1f]/50 rounded-xl backdrop-blur-sm shadow-lg">
+
+            {/* txn section */}
+            <div className=" bg-white dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg">
+            {/* action buttons */}
             <div className="flex gap-4 mb-6" />
                 {/* <div className="btn-group" style={{ marginBottom: 20 }}> */}
                       {/* { */}
@@ -758,19 +771,21 @@ const Welcome = () => {
                           )
                       } */}
                       <button 
-                              onClick={() =>  updateSection("Withdraw")} 
-                              className={`flex-1 py-3 px-6 font-medium transition-all duration-300 rounded-full 
-                              ${ section === "Deposit"  ? "bg-[#4681ee] dark:bg-[#2952e3] text-white"
-                                : "border border-[#4681ee]/20 dark:border-white/20 text-[#4681ee] dark:text-white hover:bg-[#4681ee]/5 dark:hover:bg-white/5"}`}>Withdraw
-                                </button>  
+                      onClick={() =>  updateSection("Withdraw")} 
+                      className={`flex-1 py-3 px-6 font-medium transition-all duration-300 rounded-full 
+                      ${ section === "Deposit"  ? "bg-[#4681ee] dark:bg-[#2952e3] text-white"
+                        : "border border-[#4681ee]/20 dark:border-white/20 text-[#4681ee] dark:text-white hover:bg-[#4681ee]/5 dark:hover:bg-white/5"}`}>Withdraw
+                        </button>  
                   </div>
-              
 
-              {(section == "Deposit" && !!account) && (
-                  <div>
-                    {
-                      (!!proofElements) ? (
-                        <div className="space-y-4">
+
+
+
+                  {/* deposit section */}
+                  {(section == "Deposit" && !!account) && (
+                  <div className="space-y-4">
+                    {(!!proofElements) ? (
+                        <div>
                           <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-4">
                             <span className="font-semibold text-green-800 dark:text-green-200 mb-2">Proof of Deposit:</span>
                             <div className=" bg-white dark:bg-[#1a1b1f] rounded p-2">
@@ -800,15 +815,16 @@ const Welcome = () => {
                   </div>
                 )}
 
-              {(section != "Deposit" && !!account) && (
+
+                {/* withdraw section */}
+                {(section != "Deposit" && !!account) && (
                   <div>
-                    {
-                      (withdrawalSuccessful) ? (
+                    {(withdrawalSuccessful) ? (
                       // <div>
                         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg  p-4">
                             <span className="font-semibold text-green-800 dark:text-green-200">Success!</span>
                             {/* <div style={{ marginTop: 5 }}> */}
-                              <span className="text-green-700 dark:text-green-300 mt-2">Withdrawal successful.</span>
+                              <span className="block text-green-700 dark:text-green-300 mt-2">Withdrawal successful.</span>
                             {/* </div> */}
 
                         </div>
@@ -840,6 +856,8 @@ const Welcome = () => {
                       )}
                   </div>
                 )}
+          </div>
+          </div>
           {/* </div> */}
         </div>
       </div>
