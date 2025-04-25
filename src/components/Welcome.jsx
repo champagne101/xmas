@@ -36,6 +36,59 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
   />
 );
 
+
+
+// const WalletCard = ({ account, uzarBalance }) => {
+//   const [isHovered, setIsHovered] = useState(false);
+  
+//   return (
+//     <div 
+//       className="relative w-72 h-44 rounded-xl overflow-hidden transition-transform duration-700 ease-in-out hover:rotate-3"
+//       style={{
+//         background: 'linear-gradient(135deg, rgba(70, 129, 238, 0.7) 0%, rgba(54, 113, 222, 0.7) 100%)',
+//         backdropFilter: 'blur(8px)',
+//         boxShadow: '0 8px 32px rgba(70, 129, 238, 0.2)'
+//       }}
+//       onMouseEnter={() => setIsHovered(true)}
+//       onMouseLeave={() => setIsHovered(false)}
+//     >
+//       <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+      
+//       <div className="relative p-6 h-full flex flex-col justify-between">
+//         <div className="flex justify-between items-start">
+//           <CreditCard className="h-8 w-8 text-white" />
+//           <Info className="h-5 w-5 text-white/70 hover:text-white cursor-pointer transition-colors" />
+//         </div>
+        
+//         <div className={`transition-all duration-700 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-90'}`}>
+//           {account ? (
+//             <>
+//               <div className="mb-1">
+//                 <div className="text-sm text-white/70">{account.address.slice(0, 12)}...</div>
+//                 <div className="text-sm text-white/70">{account.balance.slice(0, 10)}{account.balance.length > 10 ? "..." : ""} ETH</div>
+//               </div>
+//               <div className="text-2xl font-bold text-white mb-1">
+//                 {uzarBalance} UZAR
+//               </div>
+//             </>
+//           ) : (
+//             <div className="text-2xl font-bold text-white mb-1">
+//               0 UZAR
+//             </div>
+//           )}
+//           <div className="text-xs text-white/70">
+//             User Balance
+//           </div>
+//         </div>
+//       </div>
+      
+//       <div className={`absolute inset-0 bg-white/5 transition-opacity duration-700 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
+//     </div>
+//   );
+// };
+
+
+
 const Welcome = () => {
   const [provider, setProvider] = useState(null);
   const [accounts, setAccount] = useState(null);
@@ -530,6 +583,9 @@ const Welcome = () => {
     setIsScanned(true); // Set scan state to true
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
+
 
   return (
     <div className="flex w-full justify-center items-center">
@@ -619,28 +675,40 @@ const Welcome = () => {
         </div>
 
         <div className="flex flex-col flex-1 items-center justify-start w-full md:mt-0 mt-10">
-          <div className="p-6 flex justify-end items-start flex-col rounded-xl h-48 sm:w-80 w-full my-5  bg-gradient-to-br from-[#4681ee] to-[#3671de] dark:from-[#2952e3] dark:to-[#2546bd]">
-            <div className="flex justify-between flex-col w-full h-full">
+          <div
+           className="p-6 flex justify-end items-start flex-col rounded-xl sm:w-80 w-full my-5 h-48  overflow-hidden transition-transform  duration-700 ease-in-out hover:rotate-3 "
+           style={{
+            background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.7) 0%, rgba(236, 72, 153, 0.7) 100%)',
+            backdropFilter: 'blur(8px)',
+            boxShadow: '0 8px 32px rgba(70, 129, 238, 0.2)'
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div> */}
+
+            <div className="flex justify-between flex-col  w-full h-full">
               <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-full border-2 border-white flex justify-center items-center">
+                <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center">
                   <SiEthereum fontSize={24} color="#fff" />
                 </div>
                 <BsInfoCircle fontSize={20} color="#fff" />
               </div>
-              <div>
+
+              <div className={`transition-all duration-700 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-90'}`}>
+                <div>
                 {/* <p className=" font-light text-sm"> */}
                 {!!account ? (
                   // <div className="container">
-                    <div className=" text-white">
+                    <div className=" text-white mb-1">
                         <span className="font-semibold">{account.address.slice(0, 12) + "..."}</span>
                         <br/>
                         <span className="text-white/80">{account.balance.slice(0, 10) + ((account.balance.length > 4) ? ("...") : (""))} ETH</span>
-                        <p className=" font-bold text-2xl mt-2">
-                {uzarBalance} UZAR </p>
+                        <p className=" font-bold text-2xl mt-2">{uzarBalance} UZAR </p>
                     </div>
                   // </div>
                   ) : 
-                  // (
+                  (
                     // <button
                     //   type="button"
                     //   onClick={connectMetamask}
@@ -648,13 +716,19 @@ const Welcome = () => {
                     // >
                       
                     // </button>
-                    null
-                    // )
-                  }
+                    <div className="text-2xl font-bold text-white mb-1">
+                      0 UZAR
+                    </div>
+                    // null
+                    )}
+                     <div className="text-xs text-white/70">
+                    User Balance
+                  </div>
                 {/* </p> */}
                 {/* <p className=" font-bold text-2xl mt-2">
                 {uzarBalance} UZAR */}
                 {/* </p> */}
+                </div>
               </div>
             </div>
           </div>
