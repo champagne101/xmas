@@ -597,39 +597,38 @@ const Welcome = () => {
           <div className="flex-1 space-y-10">
             {/* hero section */}
             <div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 ">
             Send Money 
             <span className="block">even when offline</span>
           </h1>
           <p className="text-[#4681ee]/80 dark:text-white/80 text-lg mb-8 max-w-lg">
-            Explore the offconnectx world. Buy and sell currencies easily on OffConnectX.
+            Explore the OffConnectX world. Buy and sell currencies easily on OffConnectX.
           </p>
 
 
           {/* Wallet Conn */}
            {!!account ? (
             <div className=" dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg w-full max-w-md">
-              <div className="space-y-2">
-                  <span className="text-lg semi-bold text-[#4681ee] dark:text-white">{account.address.slice(0, 12) + "..."}</span>
-                  
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-semibold text-[#4681ee] dark:text-white">{account.address.slice(0, 12) + "..."}</span>
                   <span className="text-[#4681ee]/70 dark:text-white/70">{account.balance.slice(0, 10) + ((account.balance.length > 10) ? ("...") : (""))} ETH</span>
-                  
-
+                </div> 
                   <p className="text-2xl font-bold text-[#4681ee] dark:text-white ">UZAR Balance: {uzarBalance}</p>
                   <p className=" text-[#4681ee]/80 dark:text-white/80 ">Allowance: {allowance}</p>
-                  <button className="px-6 py-2 bg-[#4681ee] dark:bg-[#2952e3] hover:bg-[#3671de] dark:hover:bg-[#2546bd] text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105" onClick={approveUzar}>Approve UZAR</button>
+                  <button className="w-full px-6 py-3 bg-[#4681ee] dark:bg-[#2952e3] hover:bg-[#3671de] dark:hover:bg-[#2546bd] text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105" onClick={approveUzar}>Approve UZAR</button>
               </div>
             </div>
             ) : (
               <button
-                type="button"
+                // type="button"
                 onClick={connectMetamask}
                 className="flex items-center bg-[#4681ee] dark:bg-[#2952e3] hover:bg-[#3671de] dark:hover:bg-[#2546bd] px-6 py-3 text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105 "
               >
                 <AiFillPlayCircle className=" mr-2 text-xl" />
-                <span>
+                {/* <span> */}
                   Connect Wallet
-                </span>
+                {/* </span> */}
               </button>
               )}
             </div>
@@ -646,27 +645,30 @@ const Welcome = () => {
                 { icon: <FaDollarSign className="h-6 w-6" />, title: 'Low Fees' },
                 { icon: <FaBook className="h-6 w-6" />, title: 'Zero Knowledge' }
               ].map((feature, index) => (
-                <div key={index} className="bg-white dark:bg-[#1a1b1f]/50 hover:bg-[#4681ee]/5 dark:hover:bg-white/5 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center justify-center h-32 transition-all duration-300">
-                  <div className="mb-2 text-[#4681ee] dark:text-white">{feature.icon}</div>
-                  <h3 className="text-sm md:text-base font-medium">{feature.title}</h3>
+                <div key={index} className=" dark:bg-[#1a1b1f]/50 hover:bg-[#4681ee]/5 dark:hover:bg-white/5 backdrop-blur-sm rounded-xl p-8 flex flex-col items-center justify-center transition-all duration-300 shadow-sm">
+                  <div className="mb-4 text-[#4681ee] dark:text-white">{feature.icon}</div>
+                  <h3 className="text-base text-[#4681ee] dark:text-white font-medium">{feature.title}</h3>
                 </div>
               ))}
             </div>
 
 
             {/* qr code section */}
-          <div className="w-full max-w-md">
-            <h2 className="text-xl font-semibold mb-4">Your QR Code</h2>
+          <div className="w-full  rounded-xl p-8 shadow-lg w-full">
+            <h2 className="text-xl font-semibold mb-6">Your QR Code</h2>
               {!isScanned ? (
-                <div className="bg-white dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg">
+                <div className="flex flex-col items-center">
+                  <div className="bg-[#f6f7fc] dark:bg-[#1a1b1f] rounded-xl p-8 mb-4 w-64 h-64 flex items-center justify-center">
+
                   <img
                     src={qrCodeURL}
                     alt="Generated QR Code with Amount"
                     onClick={handleScan} // Simulate scan event on click
                     // style={{ cursor: "pointer" }}
-                    className="w-full max-w-xs mx-auto cursor-pointer hover:opacity-90 transition-opacity"
+                    className="w-full cursor-pointer hover:opacity-90 transition-opacity"
                   />
-                  <p className="text-[#4681ee]/70 dark:text-white/70 mt-4 text-sm">Click on the QR Code to simulate scanning.</p>
+                  </div>
+                  <p className="text-[#4681ee]/70 dark:text-white/70  text-sm">Click on the QR Code to simulate scanning.</p>
                 </div>
               ) : (
                 <div className="text-center">
@@ -677,19 +679,23 @@ const Welcome = () => {
               )}
           
               {qrCodeURL && (
-                <div className="mt-4">
+                <div className="mt-6 flex flex-col items-center">
                   <img src={qrCodeURL} alt="Custom QR Code" />
-                  <button className=" mt-2 text-[#4681ee] dark:text-white hover:underline" onClick={downloadQRCode}>Download QR Code</button>
+                  <button className="flex items-center px-4 py-2 text-[#4681ee] dark:text-white hover:bg-[#4681ee]/5 dark:hover:bg-white/5 rounded-full transition-all duration-300" onClick={downloadQRCode}>
+                  <span className="mr-2">↓</span>
+                    Download QR Code
+                  </button>
                 </div>
               )}
-              {isScanned && <p className=" font-light text-sm">QR Code has been scanned!</p>}
-              {!qrCodeURL && <p className="text-[#4681ee]/70 dark:text-white/70">Loading QR Code...</p>}
+              {/* {isScanned && <p className=" font-light text-sm text-center">QR Code has been scanned!</p>} */}
+              {!qrCodeURL && <p className="text-[#4681ee]/70 dark:text-white/70 text-center">Loading QR Code...</p>}
           </div>
         </div>
 
 
         {/* right column */}
-        <div className="flex-1  w-full space-y-8">
+        <div className="flex-1 w-full space-y-8">
+          {/* wallet card */}
           <div
            className=" relative rounded-xl sm:w-80 w-full max-w-md mx-auto h-48  overflow-hidden transition-transform  duration-700 ease-in-out hover:rotate-3 "
            style={{
@@ -711,7 +717,7 @@ const Welcome = () => {
               </div>
 
               <div className={`transition-all duration-700 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-90'}`}>
-                <div>
+                {/* <div> */}
                 {/* <p className=" font-light text-sm"> */}
                 {!!account ? (
                   // <div className="container">
@@ -722,65 +728,40 @@ const Welcome = () => {
                         <p className=" font-bold text-2xl mt-2">{uzarBalance} UZAR </p>
                     </div>
                   // </div>
-                  ) : 
-                  (
-                    // <button
-                    //   type="button"
-                    //   onClick={connectMetamask}
-                    //   className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                    // >
-                      
-                    // </button>
+                  ) : (
                     <div className="text-2xl font-bold text-white mb-1">0 UZAR</div>
                     // null
                     )}
                      <div className="text-xs text-white/70">User Balance</div>
-                {/* </p> */}
-                {/* <p className=" font-bold text-2xl mt-2">
-                {uzarBalance} UZAR */}
-                {/* </p> */}
                 </div>
               </div>
             </div>
+            
 
 
 
             {/* txn section */}
-            <div className=" bg-white dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg">
+            <div className=" dark:bg-[#1a1b1f]/50 rounded-xl p-6 backdrop-blur-sm shadow-lg">
             {/* action buttons */}
             <div className="flex gap-4 mb-6" />
-                {/* <div className="btn-group" style={{ marginBottom: 20 }}> */}
-                      {/* { */}
-                          {/* (section == "Deposit") ? ( */}
-                              {/* <button className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Deposit</button> */}
-                          {/* ) : ( */}
-                              <button 
-                              onClick={() =>  updateSection("Deposit")} 
-                              className={`flex-1 py-3 px-6 font-medium transition-all duration-300 rounded-full 
-                              ${ section === "Deposit" ? "bg-[#4681ee] dark:bg-[#2952e3] text-white"
-                                : "border border-[#4681ee]/20 dark:border-white/20 text-[#4681ee] dark:text-white hover:bg-[#4681ee]/5 dark:hover:bg-white/5"}`}>Deposit
-                                </button>  
-                                 
-                          {/* ) */}
-                      {/* } */}
-                      {/* {
-                          (section == "Deposit") ? (
-                              <button onClick={() => { updateSection("Withdraw"); }} className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button> 
-                          ) : (
-                              <button className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button>
-                          )
-                      } */}
-                      <button 
-                      onClick={() =>  updateSection("Withdraw")} 
-                      className={`flex-1 py-3 px-6 font-medium transition-all duration-300 rounded-full 
-                      ${ section === "Deposit"  ? "bg-[#4681ee] dark:bg-[#2952e3] text-white"
-                        : "border border-[#4681ee]/20 dark:border-white/20 text-[#4681ee] dark:text-white hover:bg-[#4681ee]/5 dark:hover:bg-white/5"}`}>Withdraw
-                        </button>  
-                  </div>
+            <button 
+            onClick={() =>  updateSection("Deposit")} 
+            className={`flex-1 py-3 px-6 font-medium transition-all duration-300 rounded-full 
+            ${ section === "Deposit" ? "bg-[#4681ee] dark:bg-[#2952e3] text-white"
+              : "border border-[#4681ee]/20 dark:border-white/20 text-[#4681ee] dark:text-white hover:bg-[#4681ee]/5 dark:hover:bg-white/5"}`}>
+                Deposit
+            </button> 
 
+            <button 
+            onClick={() =>  updateSection("Withdraw")} 
+            className={`flex-1 py-3 px-6 font-medium transition-all duration-300 rounded-full 
+            ${ section === "Deposit"  ? "bg-[#4681ee] dark:bg-[#2952e3] text-white"
+              : "border border-[#4681ee]/20 dark:border-white/20 text-[#4681ee] dark:text-white hover:bg-[#4681ee]/5 dark:hover:bg-white/5"}`}>
+                Withdraw
+              </button>  
+              </div>
 
-
-
+\
                   {/* deposit section */}
                   {(section == "Deposit" && !!account) && (
                   <div className="space-y-4">
@@ -808,7 +789,8 @@ const Welcome = () => {
                             className=" w-full py-3 px-6 bg-[#4681ee] dark:bg-[#2952e3] hover:bg-[#3671de] dark:hover:bg-[#2546bd] text-white font-medium rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" 
                             onClick={depositEther}
                             disabled={depositButtonState == ButtonState.Disabled}
-                          >Deposit UZAR
+                          >
+                            Deposit UZAR
                           </button>
                         </div>
                       )}
@@ -835,7 +817,8 @@ const Welcome = () => {
                         {/* <div className="form-group"> */}
                           <textarea className="w-full p-3 rounded-lg bg-[#f6f7fc] dark:bg-[#1a1b1f] border border-[#4681ee]/20 dark:border-white/20 text-[#4681ee] dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-[#4681ee] dark:focus:ring-[#2952e3]"
                               rows={4} 
-                              ref={(ta) => { updateTextArea(ta); }}/>
+                              ref={(ta) => { updateTextArea(ta); }}
+                              />
                         {/* </div> */}
                         <div className="flex gap-2">
                         <button 
@@ -843,7 +826,8 @@ const Welcome = () => {
                            rounded-fulltransition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" 
                           onClick={withdraw}
                           disabled={withdrawButtonState == ButtonState.Disabled}
-                        >Withdraw UZAR
+                        >
+                          Withdraw UZAR
                         </button>
                         <button
                         onClick={tester}
@@ -852,11 +836,11 @@ const Welcome = () => {
                         Test UZAR Proof
                       </button>
                         </div>
-                        </div>                
-                      )}
+                      </div>                
+                    )}
                   </div>
                 )}
-          </div>
+          {/* </div> */}
           </div>
           {/* </div> */}
         </div>
@@ -866,46 +850,3 @@ const Welcome = () => {
 };
 
 export default Welcome;
-
-
-
-{/* {
-                (section != "Deposit" && !!account) && (
-                  <div>
-                    {
-                      (withdrawalSuccessful) ? (
-                      <div>
-                        <div className="alert alert-success p-3">
-                            <div><span><strong>Success!</strong></span></div>
-                            <div style={{ marginTop: 5 }}>
-                              <span className="text-secondary ">Withdrawal successful.</span>
-                            </div>
-
-                        </div>
-                      </div>
-                      ) : (
-                      <div>
-                        <div className="form-group">
-                          <textarea className="form-control" style={{ resize: "none" }} ref={(ta) => { updateTextArea(ta); }}></textarea>
-                        </div>
-                        <button 
-                          className=" w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
-                          onClick={tester}
-                         
-                        ><span className="small">Test UZAR Proof</span></button>
-                        </div>                  
-                      )
-                    }
-                  </div>
-                )
-              } */}
-
-                        
-          {/* </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Welcome; */}
