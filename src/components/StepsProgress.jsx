@@ -60,7 +60,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
   return (
     <div
       className={`
-      w-full p-8 rounded-xl backdrop-blur-sm shadow-lg transition-all duration-300
+      w-full p-8 rounded-xl backdrop-blur-sm shadow-lg transition-all duration-300 
       ${
         isDarkMode ? "bg-white/5 border border-white/10 text-white" : "bg-white/80 border border-gray-200 text-gray-900"
       }
@@ -70,7 +70,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
         How It Works
       </h2>
 
-      {/* Steps Progress Bar */}
+      {/* steps progress bar */}
       <div className="relative flex items-center justify-between mb-10 px-4">
         {[...Array(totalSteps)].map((_, index) => {
           const isActive = index + 1 <= currentStep
@@ -96,7 +96,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
             >
               {index + 1}
 
-              {/* Step label below the circle */}
+              {/* step label below the circle */}
               <span
                 className={`
                 absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap
@@ -110,7 +110,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
           )
         })}
 
-        {/* Progress Bar */}
+        {/* progress bar */}
         <div className={`absolute w-full h-1 top-5 md:top-6 ${isDarkMode ? "bg-white/10" : "bg-gray-200"} -z-0`}>
           <div
             className={`h-full transition-all duration-500 ease-in-out ${
@@ -121,7 +121,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
         </div>
       </div>
 
-      {/* Step Content */}
+      {/* step content */}
       <div
         className={`
         mb-8 text-center p-6 rounded-xl min-h-[160px] flex flex-col items-center justify-center
@@ -136,7 +136,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
         </p>
       </div>
 
-      {/* Action Button Example */}
+      {/* action button example */}
       {currentStep === 3 && (
         <div className="mb-8 flex justify-center">
           <button
@@ -200,7 +200,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
         </div>
       )}
 
-      {/* Navigation Buttons */}
+      {/* nav buttons */}
       <div className="flex items-center justify-center gap-4 mt-6">
         <StepButton disabled={currentStep === 1} onClick={() => updateStep("prev")} isDarkMode={isDarkMode}>
           Previous

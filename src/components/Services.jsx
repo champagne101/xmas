@@ -20,10 +20,10 @@ const ServiceCard = ({ color, title, icon, subtitle }) => (
 );
 
 const Services = () => (
-  <section  className="w-full py-16 md:py-24">
+  <section  className="w-full pt-0 pb-16 md:pb-24 -mt-10 ">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* <div className="flex md:flex-row flex-col items-start justify-between gap-12"> */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
         <h2 className=" text-3xl md:text-4xl font-bold text-[#4681ee] dark:text-white mb-4">
           Services that we
           <span className="block">continue to improve</span>

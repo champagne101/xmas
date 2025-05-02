@@ -55,7 +55,6 @@ const App = () => {
           <Welcome /> 
           {/* <Onramp /> */}
         </div>
-        {/* <StepsProgress/> */}
         <Services />
         {/* {<Transactions /> } */}
         <Footer />
