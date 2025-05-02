@@ -16,6 +16,7 @@ import UzarTokenABI from "../json/abizar.json";
 
 import QRCode from "qrcode";
 // import QrReader from "react-qr-reader";
+import StepsProgress from "./StepsProgress.jsx";
 
 
 const UZAR_TOKEN_ADDRESS = "0xBf715EB900bbEAa2C7e136E9c2A0C6AED93E8aeb"; // lisk sepolia // '0x5315E2c1B45f58c468dE6a31eBF8ae9f06790F32'; sepolia eth 11155111
@@ -612,10 +613,11 @@ const Welcome = () => {
               </div>
 
 
+              {/* Conditional content based on wallet connection */}
+              {!account ? (
+              <>
 
-              {/* {!account ? } */}
-      
-              {/* Features Section */}
+              {/* Features Section  shown when not connected*/}
               <div className="mb-20">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {[
@@ -661,8 +663,52 @@ const Welcome = () => {
                   ))}
                 </div>
               </div>
+
+              {/* How it Works shown only when not connected */}
+              <div className="mb-20">
+              <StepsProgress isDarkMode={true} />
+              </div>
+              </>
+
+              ) : (
+                <>
+                {/* // Account Info Section - Only show when connected */}
+                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 mb-20">
+                  <h2 className="text-2xl font-semibold mb-6 text-white">Account Information</h2>
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg text-white/80">Address:</span>
+                      <span className="text-lg font-semibold text-white">
+                        {account.address.slice(0, 12) + "..." + account.address.slice(-8)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg text-white/80">ETH Balance:</span>
+                      <span className="text-lg font-semibold text-white">
+                        {account.balance.slice(0, 10) + (account.balance.length > 10 ? "..." : "")} ETH
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg text-white/80">UZAR Balance:</span>
+                      <span className="text-lg font-semibold text-white">{uzarBalance} UZAR</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg text-white/80">Allowance:</span>
+                      <span className="text-lg font-semibold text-white">{allowance} UZAR</span>
+                    </div>
+                    <button
+                      className="w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all duration-300"
+                      onClick={approveUzar}
+                    >
+                      Approve UZAR
+                    </button>
+                  </div>
+                </div>
+
+
+
       
-              {/* QR Code Section */}
+              {/* QR Code Section shown only when connected */}
               <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8 mb-20">
                 <h2 className="text-2xl font-semibold mb-8 text-white">Your QR Code</h2>
       
@@ -892,44 +938,12 @@ const Welcome = () => {
                   </div>
                 </div>
               </div>
-      
-              {/* Account Info Section - Only show when connected */}
-              {!!account && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
-                  <h2 className="text-2xl font-semibold mb-6 text-white">Account Information</h2>
-                  <div className="space-y-6">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">Address:</span>
-                      <span className="text-lg font-semibold text-white">
-                        {account.address.slice(0, 12) + "..." + account.address.slice(-8)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">ETH Balance:</span>
-                      <span className="text-lg font-semibold text-white">
-                        {account.balance.slice(0, 10) + (account.balance.length > 10 ? "..." : "")} ETH
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">UZAR Balance:</span>
-                      <span className="text-lg font-semibold text-white">{uzarBalance} UZAR</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">Allowance:</span>
-                      <span className="text-lg font-semibold text-white">{allowance} UZAR</span>
-                    </div>
-                    <button
-                      className="w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all duration-300"
-                      onClick={approveUzar}
-                    >
-                      Approve UZAR
-                    </button>
-                  </div>
-                </div>
-              )}
+              </>
+            )}
             </div>
           </div>
+      
         )
       }
       
-      export default Welcome
+export default Welcome
