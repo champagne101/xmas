@@ -673,28 +673,28 @@ const Welcome = () => {
               ) : (
                 <>
                 {/* // Account Info Section - Only show when connected */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 mb-20">
-                  <h2 className="text-2xl font-semibold mb-6 text-white">Account Information</h2>
+                <div className="bg-white dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-[#4681ee]/10 dark:border-white/10 mb-20">
+                  <h2 className="text-2xl font-semibold mb-6 dark:text-white text-[#4681ee]">Account Information</h2>
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">Address:</span>
-                      <span className="text-lg font-semibold text-white">
+                      <span className="text-lg dark:text-white/80 text-[#4681ee]/80">Address:</span>
+                      <span className="text-lg font-semibold dark:text-white text-[#4681ee]">
                         {account.address.slice(0, 12) + "..." + account.address.slice(-8)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">ETH Balance:</span>
-                      <span className="text-lg font-semibold text-white">
+                      <span className="text-lg dark:text-white/80 text-[#4681ee]/80">ETH Balance:</span>
+                      <span className="text-lg font-semibold dark:text-white text-[#4681ee]">
                         {account.balance.slice(0, 10) + (account.balance.length > 10 ? "..." : "")} ETH
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">UZAR Balance:</span>
-                      <span className="text-lg font-semibold text-white">{uzarBalance} UZAR</span>
+                      <span className="text-lg dark:text-white/80 text-[#4681ee]/80">UZAR Balance:</span>
+                      <span className="text-lg font-semibold dark:text-white text-[#4681ee]">{uzarBalance} UZAR</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-lg text-white/80">Allowance:</span>
-                      <span className="text-lg font-semibold text-white">{allowance} UZAR</span>
+                      <span className="text-lg dark:text-white/80 text-[#4681ee]/80">Allowance:</span>
+                      <span className="text-lg font-semibold dark:text-white text-[#4681ee]">{allowance} UZAR</span>
                     </div>
                     <button
                       className="w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all duration-300"
@@ -709,8 +709,8 @@ const Welcome = () => {
 
       
               {/* QR Code Section shown only when connected */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8 mb-20">
-                <h2 className="text-2xl font-semibold mb-8 text-white">Your QR Code</h2>
+              <div className="bg-white dark:bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8 mb-20">
+                <h2 className="text-2xl font-semibold mb-8 dark:text-white text-[#4681ee]">Your QR Code</h2>
       
                 <div className="flex flex-col lg:flex-row items-center gap-8">
                   <div className="lg:w-1/2 flex flex-col items-center">
@@ -729,12 +729,12 @@ const Welcome = () => {
                             ) : (
                               <div className="animate-pulse flex flex-col items-center justify-center w-full h-full">
                                 <div className="h-32 w-32 bg-white/10 rounded"></div>
-                                <div className="mt-4 text-white/40 text-sm">Generating QR code...</div>
+                                <div className="mt-4 dark:text-white/40 text-[#4681ee] text-sm">Generating QR code...</div>
                               </div>
                             )}
                           </div>
                         </div>
-                        <p className="text-white/70 text-sm">Click on the QR Code to simulate scanning.</p>
+                        <p className="dark:text-white/70 text-[#4681ee] text-sm">Click on the QR Code to simulate scanning.</p>
       
                         {qrCodeURL && !isScanned && (
                           <button

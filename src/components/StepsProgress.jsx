@@ -62,7 +62,7 @@ const StepsProgress = ({ isDarkMode = true }) => {
       className={`
       w-full p-8 rounded-xl backdrop-blur-sm shadow-lg transition-all duration-300 
       ${
-        isDarkMode ? "bg-white/5 border border-white/10 text-white" : "bg-white/80 border border-gray-200 text-gray-900"
+        isDarkMode ? "bg-white/5 border border-white/10 text-white" : "bg-white border border-gray-200 text-gray-900"
       }
     `}
     >
