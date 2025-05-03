@@ -33,8 +33,8 @@ const StepButton = ({ disabled, onClick, children }) => (
     className={`
       flex items-center justify-center px-6 py-3 text-base font-medium rounded-full 
       transition-all duration-300 transform hover:scale-105 shadow-md
-      bg-[#4681ee] hover:bg-[#3671de] disabled:bg-[#4681ee]/40 shadow-[#4681ee]/20
-      dark:bg-[#4681ee] dark:hover:bg-[#3671de] dark:disabled:bg-[#4681ee]/40 dark:shadow-[#4681ee]/20
+      bg-[#346f8f] hover:bg-[#185371] disabled:bg-[#346f8f]/40 shadow-[#346f8f]/20
+      dark:bg-[#346f8f] dark:hover:bg-[#35677c] dark:disabled:bg-[#346f8f]/40 dark:shadow-[#346f8f]/20
       text-white disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none
     `}
   >
@@ -58,11 +58,11 @@ const StepsProgress = () => {
     <div
       className={`
       w-full p-8 rounded-xl backdrop-blur-sm shadow-lg transition-all duration-300 
-      bg-white/10 border border-gray-200 text-[#4681ee]
+      bg-white/10 border border-gray-200 text-[#346f8f]
       dark:bg-white/5 dark:border dark:border-white/10 dark:text-white
     `} 
     >
-      <h2 className="text-2xl font-bold mb-6 text-center text-[#4681ee] dark:text-white">
+      <h2 className="text-2xl font-bold mb-6 text-center text-[#346f8f] dark:text-white">
         How It Works
       </h2>
 
@@ -81,7 +81,7 @@ const StepsProgress = () => {
                 ${isCurrent && "animate-pulse"}
                 ${
                   isActive
-                    ? "bg-[#4681ee] text-white shadow-lg shadow-[#4681ee]/30 dark:bg-[#4681ee] dark:text-white dark:shadow-lg dark:shadow-[#4681ee]/30"
+                    ? "bg-[#346f8f] text-white shadow-lg shadow-[#346f8f]/30 dark:bg-[#346f8f] dark:text-white dark:shadow-lg dark:shadow-[#346f8f]/30"
                     : "bg-gray-100 text-gray-400 border border-gray-200 dark:bg-white/10 dark:text-white/60 dark:border-white/20"
                 }
               `}
@@ -92,8 +92,8 @@ const StepsProgress = () => {
               <span
                 className={`
                 absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap
-                text-[#4681ee]/70 dark:text-white/70
-                ${isCurrent && "text-[#4681ee] font-medium dark:text-white"}
+                text-[#346f8f]/70 dark:text-white/70
+                ${isCurrent && "text-[#346f8f] font-medium dark:text-white"}
               `}
               >
                 Step {index + 1}
@@ -105,7 +105,7 @@ const StepsProgress = () => {
         {/* progress bar */}
         <div className="absolute w-full h-1 top-5 md:top-6 bg-gray-200 dark:bg-white/10 -z-0">
           <div
-            className="h-full transition-all duration-500 ease-in-out bg-[#4681ee] dark:bg-[#4681ee]"
+            className="h-full transition-all duration-500 ease-in-out bg-[#346f8f] dark:bg-[#346f8f]"
             style={{ width: calculateProgress() }}
           />
         </div>
@@ -115,13 +115,13 @@ const StepsProgress = () => {
       <div
         className="
         mb-8 text-center p-6 rounded-xl min-h-[160px] flex flex-col items-center justify-center
-        bg-white border border-gray-100 shadow-sm dark:bg-white/5 dark:border dark:border-white/10
+        bg-gray-50 border border-gray-100 shadow-sm dark:bg-white/5 dark:border dark:border-white/10
       "
       >
-        <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#4681ee] dark:text-white">
+        <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#346f8f] dark:text-white">
           {stepContents[currentStep - 1].title}
         </h3>
-        <p className="text-base max-w-2xl text-[#4681ee]/70 dark:text-white/80">
+        <p className="text-base max-w-2xl text-black dark:text-white/80">
           {stepContents[currentStep - 1].description}
         </p>
       </div>
@@ -132,8 +132,8 @@ const StepsProgress = () => {
           <button
             className="
             w-full max-w-md py-3 px-6 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-md
-            bg-[#4681ee] hover:bg-[#3671de] text-white shadow-[#4681ee]/20
-            dark:bg-[#4681ee] dark:hover:bg-[#3671de] dark:text-white dark:shadow-[#4681ee]/20
+            bg-[#346f8f] hover:bg-[#185371] text-white shadow-[#346f8f]/20
+            dark:bg-[#346f8f] dark:hover:bg-[#3671de] dark:text-white dark:shadow-[#346f8f]/20
           "
           >
             Approve UZAR
@@ -164,7 +164,7 @@ const StepsProgress = () => {
             dark:bg-white/5 dark:border dark:border-white/10 dark:shadow-inner
           "
           >
-            <p className="text-[#4681ee]/60 dark:text-white/60 mb-1 text-sm">Paste your proof here...</p>
+            <p className="text-[#346f8f]/60 dark:text-white/60 mb-1 text-sm">Paste your proof here...</p>
           </div>
           <button
             className="

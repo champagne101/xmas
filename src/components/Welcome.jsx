@@ -548,13 +548,13 @@ const Welcome = () => {
                     Send Money
                     <span className="block">even when offline</span>
                   </h1>
-                  <p className="text-[#4681ee] dark:text-white/80 text-lg mb-8 max-w-lg">
+                  <p className="text-black dark:text-white/80 text-lg mb-8 max-w-lg">
                     Explore the OffConnectX world. Buy and sell currencies easily on OffConnectX.
                   </p>
                   {!account && (
                     <button
                       onClick={connectMetamask}
-                      className="flex items-center bg-indigo-600 hover:bg-indigo-700 px-6 py-3 text-white font-medium rounded-full transition-all duration-300"
+                      className="flex items-center bg-[#346f8f] hover:bg-[#185371] dark:bg-[#346f8f]  dark:hover:bg-[#35677c] px-6 py-3 text-white font-medium rounded-full transition-all duration-300"
                     >
                       <AiFillPlayCircle className="mr-2 text-xl" />
                       Connect Wallet
@@ -566,9 +566,9 @@ const Welcome = () => {
                   <div
                     className="relative rounded-2xl w-full max-w-md mx-auto h-56 overflow-hidden transition-all duration-700 ease-in-out hover:rotate-1 group"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(70, 129, 238, 0.7) 0%, rgba(54, 113, 222, 0.7) 100%)',
+                      background: 'linear-gradient(135deg, rgba(97,157,175) 0%, rgba(55,113,145,255) 100%)',
                       backdropFilter: "blur(8px)",
-                      boxShadow: "0 10px 30px rgba(147, 51, 234, 0.2)",
+                      boxShadow: "0 10px 30px rgba(234, 229, 239, 0.2)",
                     }}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
@@ -648,7 +648,7 @@ const Welcome = () => {
         {
           icon: <FaBook className="h-8 w-8" />,
           title: "Zero Knowledge",
-          description: "Advanced cryptographic proofs",
+          description: "Advanced cryptographic proofs"
         },
       ].map((feature, index) => (
         <div
@@ -657,11 +657,11 @@ const Welcome = () => {
                    border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300
                    hover:bg-white/20 dark:hover:bg-white/10 group"
         >
-          <div className="mb-4 text-[#4681ee] dark:text-white p-4 bg-white/10 rounded-full group-hover:scale-110 transition-transform duration-300">
+          <div className="mb-4 text-[#346f8f] dark:text-white p-4 bg-white/10 rounded-full group-hover:scale-110 transition-transform duration-300">
             {feature.icon}
           </div>
-          <h3 className="text-xl text-[#4681ee] dark:text-white font-medium text-center mb-2">{feature.title}</h3>
-          <p className="text-[#4681ee]/70 dark:text-white/60 text-center">{feature.description}</p>
+          <h3 className="text-xl text-[#346f8f] dark:text-white font-medium text-center mb-2">{feature.title}</h3>
+          <p className="text-black dark:text-white/60 text-center">{feature.description}</p>
         </div>
       ))}
     </div>
@@ -675,31 +675,31 @@ const Welcome = () => {
 ) : (
 <>
   {/* Account Info Section - Only show when connected */}
-  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-[#4681ee]/10 dark:border-white/10 mb-20">
-    <h2 className="text-2xl font-semibold mb-6 text-[#4681ee] dark:text-white">Account Information</h2>
+  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-[#346f8f]/10 dark:border-white/10 mb-20">
+    <h2 className="text-2xl font-semibold mb-6 text-[#346f8f] dark:text-white">Account Information</h2>
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <span className="text-lg text-[#4681ee]/80 dark:text-white/80">Address:</span>
-        <span className="text-lg font-semibold text-[#4681ee] dark:text-white">
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Address:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
           {account.address.slice(0, 12) + "..." + account.address.slice(-8)}
         </span>
       </div>
       <div className="flex justify-between items-center">
-        <span className="text-lg text-[#4681ee]/80 dark:text-white/80">ETH Balance:</span>
-        <span className="text-lg font-semibold text-[#4681ee] dark:text-white">
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">ETH Balance:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
           {account.balance.slice(0, 10) + (account.balance.length > 10 ? "..." : "")} ETH
         </span>
       </div>
       <div className="flex justify-between items-center">
-        <span className="text-lg text-[#4681ee]/80 dark:text-white/80">UZAR Balance:</span>
-        <span className="text-lg font-semibold text-[#4681ee] dark:text-white">{uzarBalance} UZAR</span>
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">UZAR Balance:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{uzarBalance} UZAR</span>
       </div>
       <div className="flex justify-between items-center">
-        <span className="text-lg text-[#4681ee]/80 dark:text-white/80">Allowance:</span>
-        <span className="text-lg font-semibold text-[#4681ee] dark:text-white">{allowance} UZAR</span>
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Allowance:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{allowance} UZAR</span>
       </div>
       <button
-        className="w-full px-6 py-3 bg-[#4681ee] hover:bg-[#3671de] text-white font-medium rounded-xl transition-all duration-300"
+        className="w-full px-6 py-3 bg-[#346f8f] hover:bg-[#185371] text-white font-medium rounded-xl transition-all duration-300"
         onClick={approveUzar}
       >
         Approve UZAR
@@ -709,7 +709,7 @@ const Welcome = () => {
 
   {/* QR Code Section shown only when connected */}
   <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-white/10 p-8 mb-20">
-    <h2 className="text-2xl font-semibold mb-8 text-[#4681ee] dark:text-white">Your QR Code</h2>
+    <h2 className="text-2xl font-semibold mb-8 text-[#346f8f] dark:text-white">Your QR Code</h2>
 
     <div className="flex flex-col lg:flex-row items-center gap-8">
       <div className="lg:w-1/2 flex flex-col items-center">
@@ -728,16 +728,16 @@ const Welcome = () => {
                 ) : (
                   <div className="animate-pulse flex flex-col items-center justify-center w-full h-full">
                     <div className="h-32 w-32 bg-white/10 rounded"></div>
-                    <div className="mt-4 text-[#4681ee]/40 dark:text-white/40 text-sm">Generating QR code...</div>
+                    <div className="mt-4 text-[#346f8f]/40 dark:text-white/40 text-sm">Generating QR code...</div>
                   </div>
                 )}
               </div>
             </div>
-            <p className="text-[#4681ee]/70 dark:text-white/70 text-sm">Click on the QR Code to simulate scanning.</p>
+            <p className="text-[#346f8f]/70 dark:text-white/70 text-sm">Click on the QR Code to simulate scanning.</p>
 
             {qrCodeURL && !isScanned && (
               <button
-                className="flex items-center mt-4 px-4 py-2 text-[#4681ee] dark:text-white hover:bg-white/10 rounded-full transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-white/20"
+                className="flex items-center mt-4 px-4 py-2 text-[#346f8f] dark:text-white hover:bg-white/10 rounded-full transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-white/20"
                 onClick={downloadQRCode}
               >
                 <FaDownload className="mr-2" />
@@ -751,7 +751,7 @@ const Welcome = () => {
               <div className="absolute w-full h-full rounded-full bg-red-500/10 animate-ping"></div>
               <div className="text-red-500 text-6xl font-light relative">X</div>
             </div>
-            <p className="text-[#4681ee]/70 dark:text-white/70">QR Code has been scanned.</p>
+            <p className="text-[#346f8f]/70 dark:text-white/70">QR Code has been scanned.</p>
           </div>
         )}
       </div>
@@ -764,7 +764,7 @@ const Welcome = () => {
                     ${
                       section === "Deposit"
                         ? "bg-green-600 hover:bg-green-700 text-white"
-                        : "bg-white/10 hover:bg-white/20 text-[#4681ee] dark:text-white"
+                        : "bg-white/10 hover:bg-white/20 text-[#346f8f] dark:text-white"
                     }`}
           >
             <svg
@@ -785,7 +785,7 @@ const Welcome = () => {
                     ${
                       section !== "Deposit"
                         ? "bg-red-600 hover:bg-red-700 text-white"
-                        : "bg-white/10 hover:bg-white/20 text-[#4681ee] dark:text-white"
+                        : "bg-white/10 hover:bg-white/20 text-[#346f8f] dark:text-white"
                     }`}
           >
             <svg
@@ -810,7 +810,7 @@ const Welcome = () => {
                   <span className="font-semibold text-green-400 mb-2 block">Proof of Deposit:</span>
                   <div className="bg-white/5 rounded-md p-3 shadow-inner">
                     <span
-                      className="text-xs break-all block text-[#4681ee]/80 dark:text-white/80"
+                      className="text-xs break-all block text-[#346f8f]/80 dark:text-white/80"
                       ref={(proofStringEl) => {
                         updateProofStringEl(proofStringEl)
                       }}
@@ -822,7 +822,7 @@ const Welcome = () => {
 
                 <div className="flex items-center gap-2">
                   <button
-                    className="px-6 py-3 bg-[#4681ee] hover:bg-[#3671de] rounded-full text-white font-medium transition-all duration-300"
+                    className="px-6 py-3 bg-[#346f8f] hover:bg-[#3671de] rounded-full text-white font-medium transition-all duration-300"
                     onClick={copyProof}
                   >
                     Copy Proof String
@@ -851,7 +851,7 @@ const Welcome = () => {
             ) : (
               <div className="space-y-4">
                 <div className="p-4 bg-blue-900/20 rounded-lg border border-blue-700/50">
-                  <p className="text-[#4681ee]/90 dark:text-white/90">
+                  <p className="text-[#346f8f]/90 dark:text-white/90">
                     All deposits and withdrawals are of the same denomination of 0.1 UZAR.
                   </p>
                 </div>
@@ -871,7 +871,7 @@ const Welcome = () => {
         {section !== "Deposit" && !!account && (
           <div className="mt-6">
             {withdrawalSuccessful ? (
-              <div className=" border border-green-700/50 rounded-lg p-5">
+              <div className="                                                                                                                                                                                                                                                                                                           border border-green-700/50 rounded-lg p-5">
                 <div className="flex items-center mb-2">
                   <svg
                     className="w-5 h-5 mr-2 text-green-400"
@@ -901,13 +901,13 @@ const Welcome = () => {
             ) : (
               <div className="space-y-4">
                 <div className="p-4 bg-blue-900/20 rounded-lg border border-blue-700/50">
-                  <p className="text-[#4681ee]/90 dark:text-white/90">
+                  <p className="text-[#346f8f]/90 dark:text-white/90">
                     All deposits and withdrawals are of the same denomination of UZAR.
                   </p>
                 </div>
 
                 <textarea
-                  className="w-full p-4 rounded-lg bg-white/5 border border-gray-200 dark:border-white/20 text-[#4681ee] dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-[#4681ee] shadow-inner"
+                  className="w-full p-4 rounded-lg bg-white/5 border border-gray-200 dark:border-white/20 text-[#346f8f] dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-[#346f8f] shadow-inner"
                   rows={4}
                   placeholder="Paste your proof here..."
                   ref={(ta) => {
@@ -925,7 +925,7 @@ const Welcome = () => {
                   </button>
                   <button
                     onClick={tester}
-                    className="flex-1 px-6 py-3 border border-gray-200 dark:border-white/20 text-[#4681ee] dark:text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300"
+                    className="flex-1 px-6 py-3 border border-gray-200 dark:border-white/20 text-[#346f8f] dark:text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300"
                   >
                     Test UZAR Proof
                     </button>

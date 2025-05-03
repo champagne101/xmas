@@ -30,8 +30,8 @@ const SplashScreen = ({ onFinish }) => {
         };
     }, [onFinish]);
 
-    const bgColor = isDarkMode ? 'bg-[#244f6b]' : 'bg-[#f6f7fc]'; 
-    const textColor = isDarkMode ? 'text-[#fafcfe]' : 'text-[#4681ee]';
+    const bgColor = isDarkMode ? 'bg-[#244f6b]' : 'bg-[#d8dede]'; 
+    const textColor = isDarkMode ? 'text-[#fafcfe]' : 'text-[#346f8f]';
     const logoSrc = isDarkMode ? dark : light;
 
     return (
