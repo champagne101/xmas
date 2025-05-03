@@ -26,18 +26,15 @@ const stepContents = [
   },
 ]
 
-const StepButton = ({ disabled, onClick, children, isDarkMode }) => (
+const StepButton = ({ disabled, onClick, children }) => (
   <button
     disabled={disabled}
     onClick={onClick}
     className={`
       flex items-center justify-center px-6 py-3 text-base font-medium rounded-full 
       transition-all duration-300 transform hover:scale-105 shadow-md
-      ${
-        isDarkMode
-          ? "bg-[#4681ee] hover:bg-[#3671de] disabled:bg-[#4681ee]/40 shadow-[#4681ee]/20"
-          : "bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400/60 shadow-indigo-500/20"
-      }
+      bg-[#4681ee] hover:bg-[#3671de] disabled:bg-[#4681ee]/40 shadow-[#4681ee]/20
+      dark:bg-[#4681ee] dark:hover:bg-[#3671de] dark:disabled:bg-[#4681ee]/40 dark:shadow-[#4681ee]/20
       text-white disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none
     `}
   >
@@ -45,7 +42,7 @@ const StepButton = ({ disabled, onClick, children, isDarkMode }) => (
   </button>
 )
 
-const StepsProgress = ({ isDarkMode = true }) => {
+const StepsProgress = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const totalSteps = 5
 
@@ -61,12 +58,11 @@ const StepsProgress = ({ isDarkMode = true }) => {
     <div
       className={`
       w-full p-8 rounded-xl backdrop-blur-sm shadow-lg transition-all duration-300 
-      ${
-        isDarkMode ? "bg-white/5 border border-white/10 text-white" : "bg-white border border-gray-200 text-gray-900"
-      }
-    `}
+      bg-white/10 border border-gray-200 text-[#4681ee]
+      dark:bg-white/5 dark:border dark:border-white/10 dark:text-white
+    `} 
     >
-      <h2 className={`text-2xl font-bold mb-6 text-center ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+      <h2 className="text-2xl font-bold mb-6 text-center text-[#4681ee] dark:text-white">
         How It Works
       </h2>
 
@@ -81,16 +77,12 @@ const StepsProgress = ({ isDarkMode = true }) => {
               key={index + 1}
               className={`
                 relative z-10 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full 
-                transition-all duration-300 
+                transition-all duration-300
                 ${isCurrent && "animate-pulse"}
                 ${
                   isActive
-                    ? isDarkMode
-                      ? "bg-[#4681ee] text-white shadow-lg shadow-[#4681ee]/30"
-                      : "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30"
-                    : isDarkMode
-                      ? "bg-white/10 text-white/60 border border-white/20"
-                      : "bg-gray-100 text-gray-400 border border-gray-200"
+                    ? "bg-[#4681ee] text-white shadow-lg shadow-[#4681ee]/30 dark:bg-[#4681ee] dark:text-white dark:shadow-lg dark:shadow-[#4681ee]/30"
+                    : "bg-gray-100 text-gray-400 border border-gray-200 dark:bg-white/10 dark:text-white/60 dark:border-white/20"
                 }
               `}
             >
@@ -100,8 +92,8 @@ const StepsProgress = ({ isDarkMode = true }) => {
               <span
                 className={`
                 absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap
-                ${isDarkMode ? "text-white/70" : "text-gray-500"}
-                ${isCurrent && (isDarkMode ? "text-white" : "text-gray-800 font-medium")}
+                text-[#4681ee]/70 dark:text-white/70
+                ${isCurrent && "text-[#4681ee] font-medium dark:text-white"}
               `}
               >
                 Step {index + 1}
@@ -111,11 +103,9 @@ const StepsProgress = ({ isDarkMode = true }) => {
         })}
 
         {/* progress bar */}
-        <div className={`absolute w-full h-1 top-5 md:top-6 ${isDarkMode ? "bg-white/10" : "bg-gray-200"} -z-0`}>
+        <div className="absolute w-full h-1 top-5 md:top-6 bg-gray-200 dark:bg-white/10 -z-0">
           <div
-            className={`h-full transition-all duration-500 ease-in-out ${
-              isDarkMode ? "bg-[#4681ee]" : "bg-indigo-600"
-            }`}
+            className="h-full transition-all duration-500 ease-in-out bg-[#4681ee] dark:bg-[#4681ee]"
             style={{ width: calculateProgress() }}
           />
         </div>
@@ -123,15 +113,15 @@ const StepsProgress = ({ isDarkMode = true }) => {
 
       {/* step content */}
       <div
-        className={`
+        className="
         mb-8 text-center p-6 rounded-xl min-h-[160px] flex flex-col items-center justify-center
-        ${isDarkMode ? "bg-white/5 border border-white/10" : "bg-white border border-gray-100 shadow-sm"}
-      `}
+        bg-white border border-gray-100 shadow-sm dark:bg-white/5 dark:border dark:border-white/10
+      "
       >
-        <h3 className={`text-xl md:text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+        <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#4681ee] dark:text-white">
           {stepContents[currentStep - 1].title}
         </h3>
-        <p className={`text-base max-w-2xl ${isDarkMode ? "text-white/80" : "text-gray-600"}`}>
+        <p className="text-base max-w-2xl text-[#4681ee]/70 dark:text-white/80">
           {stepContents[currentStep - 1].description}
         </p>
       </div>
@@ -140,14 +130,11 @@ const StepsProgress = ({ isDarkMode = true }) => {
       {currentStep === 3 && (
         <div className="mb-8 flex justify-center">
           <button
-            className={`
+            className="
             w-full max-w-md py-3 px-6 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-md
-            ${
-              isDarkMode
-                ? "bg-[#4681ee] hover:bg-[#3671de] text-white shadow-[#4681ee]/20"
-                : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-500/20"
-            }
-          `}
+            bg-[#4681ee] hover:bg-[#3671de] text-white shadow-[#4681ee]/20
+            dark:bg-[#4681ee] dark:hover:bg-[#3671de] dark:text-white dark:shadow-[#4681ee]/20
+          "
           >
             Approve UZAR
           </button>
@@ -157,14 +144,11 @@ const StepsProgress = ({ isDarkMode = true }) => {
       {currentStep === 4 && (
         <div className="mb-8 flex justify-center">
           <button
-            className={`
+            className="
             w-full max-w-md py-3 px-6 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-md
-            ${
-              isDarkMode
-                ? "bg-green-600 hover:bg-green-700 text-white shadow-green-500/20"
-                : "bg-green-600 hover:bg-green-700 text-white shadow-green-500/20"
-            }
-          `}
+            bg-green-600 hover:bg-green-700 text-white shadow-green-500/20
+            dark:bg-green-600 dark:hover:bg-green-700 dark:text-white dark:shadow-green-500/20
+          "
           >
             Deposit UZAR
           </button>
@@ -174,26 +158,20 @@ const StepsProgress = ({ isDarkMode = true }) => {
       {currentStep === 5 && (
         <div className="mb-8 flex flex-col items-center gap-4">
           <div
-            className={`
+            className="
             w-full max-w-md rounded-xl p-4
-            ${
-              isDarkMode
-                ? "bg-white/5 border border-white/10 shadow-inner"
-                : "bg-gray-50 border border-gray-200 shadow-inner"
-            }
-          `}
+            bg-gray-50 border border-gray-200 shadow-inner
+            dark:bg-white/5 dark:border dark:border-white/10 dark:shadow-inner
+          "
           >
-            <p className={`${isDarkMode ? "text-white/60" : "text-gray-500"} mb-1 text-sm`}>Paste your proof here...</p>
+            <p className="text-[#4681ee]/60 dark:text-white/60 mb-1 text-sm">Paste your proof here...</p>
           </div>
           <button
-            className={`
+            className="
             w-full max-w-md py-3 px-6 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-md
-            ${
-              isDarkMode
-                ? "bg-red-600 hover:bg-red-700 text-white shadow-red-500/20"
-                : "bg-red-600 hover:bg-red-700 text-white shadow-red-500/20"
-            }
-          `}
+            bg-red-600 hover:bg-red-700 text-white shadow-red-500/20
+            dark:bg-red-600 dark:hover:bg-red-700 dark:text-white dark:shadow-red-500/20
+          "
           >
             Withdraw UZAR
           </button>
@@ -202,10 +180,10 @@ const StepsProgress = ({ isDarkMode = true }) => {
 
       {/* nav buttons */}
       <div className="flex items-center justify-center gap-4 mt-6">
-        <StepButton disabled={currentStep === 1} onClick={() => updateStep("prev")} isDarkMode={isDarkMode}>
+        <StepButton disabled={currentStep === 1} onClick={() => updateStep("prev")}>
           Previous
         </StepButton>
-        <StepButton disabled={currentStep === totalSteps} onClick={() => updateStep("next")} isDarkMode={isDarkMode}>
+        <StepButton disabled={currentStep === totalSteps} onClick={() => updateStep("next")}>
           Next
         </StepButton>
       </div>

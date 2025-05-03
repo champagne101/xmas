@@ -548,7 +548,7 @@ const Welcome = () => {
                     Send Money
                     <span className="block">even when offline</span>
                   </h1>
-                  <p className="text-white/80 text-lg mb-8 max-w-lg">
+                  <p className="text-[#4681ee] dark:text-white/80 text-lg mb-8 max-w-lg">
                     Explore the OffConnectX world. Buy and sell currencies easily on OffConnectX.
                   </p>
                   {!account && (
