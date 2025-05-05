@@ -35,7 +35,7 @@ const App = () => {
 
 
   // matches the main app's initial bg to the splash screen
-  const appBg = isDarkMode ? 'bg-[#244f6b]' : 'bg-[#f6f7fc]';
+  const appBg = isDarkMode ? 'bg-[#244f6b]' : 'bg-[#d8dede]';
   
 
   return (
