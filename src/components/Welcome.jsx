@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { FaUserShield, FaLock, FaWifi, FaShieldAlt, FaDollarSign, FaBook } from "react-icons/fa";
 import fs from "fs"; 
 
 //import { TransactionContext } from "../context/TransactionContext";
@@ -15,6 +16,7 @@ import UzarTokenABI from "../json/abizar.json";
 
 import QRCode from "qrcode";
 // import QrReader from "react-qr-reader";
+import StepsProgress from "./StepsProgress.jsx";
 
 
 const UZAR_TOKEN_ADDRESS = "0xBf715EB900bbEAa2C7e136E9c2A0C6AED93E8aeb"; // lisk sepolia // '0x5315E2c1B45f58c468dE6a31eBF8ae9f06790F32'; sepolia eth 11155111
@@ -23,7 +25,7 @@ const tornadoAddress = "0x46c321234896293Fae383C9768b338902db6B20E"; // lisk sep
 const tornadoABI = tornadoJSON.abi;
 const tornadoInterface = new ethers.utils.Interface(tornadoABI);
 const ButtonState = { Normal: 0, Loading: 1, Disabled: 2 };
-const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
+const companyCommonStyles = "bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl transition-all duration-300 p-4 flex items-center justify-center flex-col h-32";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -32,9 +34,11 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     step="0.0001"
     value={value}
     onChange={(e) => handleChange(e, name)}
-    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent  border-none text-sm white-glassmorphism"
   />
 );
+
+
 
 const Welcome = () => {
   const [provider, setProvider] = useState(null);
@@ -530,266 +534,416 @@ const Welcome = () => {
     setIsScanned(true); // Set scan state to true
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
+
 
   return (
-    <div className="flex w-full justify-center items-center">
-      <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
-        <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
-          <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
-            Send Money <br /> even when offline
-          </h1>
-          <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-            Explore the offconnectx world. Buy and sell currencies easily on OffConnectX.
-          </p>
-          
-          
-
-
-          {!!account ? (
-            <div className="container">
-          
-              <div className="text-white text-base font-semibold">
-                  <span><strong>{account.address.slice(0, 12) + "..."}</strong></span>
-                  <br/>
-                  <span className="small">{account.balance.slice(0, 10) + ((account.balance.length > 10) ? ("...") : (""))} ETH</span>
-                  <br/>
-                  <p className="sm:text-2xl text-white text-gradient py-1">UZAR Balance: {uzarBalance}</p>
-                  <p className="text-white text-gradient">Allowance: {allowance}</p>
-                  <button  className=" text-white text-gradient" onClick={approveUzar}>Approve UZAR</button>
-              </div>
-            </div>
-            ) : (
-              <button
-                type="button"
-                onClick={connectMetamask}
-                className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-              >
-                <AiFillPlayCircle className="text-white mr-2" />
-                <p className="text-white text-base font-semibold">
-                  Connect Wallet
-                </p>
-              </button>
-              )
-            }
-            
-          <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
-            <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
-              Reliability
-            </div>
-            <div className={companyCommonStyles}>Security</div>
-            <div className={`sm:rounded-tr-2xl ${companyCommonStyles}`}>
-              Offline
-            </div>
-            <div className={`sm:rounded-bl-2xl ${companyCommonStyles}`}>
-              Privacy
-            </div>
-            <div className={companyCommonStyles}>Low Fees</div>
-            <div className={`rounded-br-2xl ${companyCommonStyles}`}>
-              Zero Knowledge
-            </div>
-          </div>
-
-          <h1 className="text-white font-light text-sm">Your QR Code</h1>
-            {!isScanned ? (
-              <div>
-                <img
-                  src={qrCodeURL}
-                  alt="Generated QR Code with Amount"
-                  onClick={handleScan} // Simulate scan event on click
-                  style={{ cursor: "pointer" }}
-                />
-                <p className="text-white font-light text-sm">Click on the QR Code to simulate scanning.</p>
-              </div>
-            ) : (
-              <div>
-                <h1 style={{ color: "red", fontSize: "5rem" }}>X</h1>
-                <p className="text-white font-light text-sm">QR Code has been scanned.</p>
-              </div>
-            )}
-
-
-        
-            {qrCodeURL && (
-              <div>
-                <img src={qrCodeURL} alt="Custom QR Code" />
-                <br />
-                <button className="text-white font-light text-sm" onClick={downloadQRCode}>Download QR Code</button>
-              </div>
-            )}
-            {isScanned && <p className="text-white font-light text-sm">QR Code has been scanned!</p>}
-            {!qrCodeURL && <p className="text-white font-light text-sm">Loading QR Code...</p>}
-        </div>
-
-        <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
-          <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
-            <div className="flex justify-between flex-col w-full h-full">
-              <div className="flex justify-between items-start">
-                <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center">
-                  <SiEthereum fontSize={21} color="#fff" />
+    <div className="min-h-screen ">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              {/* Hero Section */}
+              <div className="flex flex-col lg:flex-row items-center justify-between mb-20">
+                <div className="lg:w-1/2 mb-10 lg:mb-0">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    Send Money
+                    <span className="block">even when offline</span>
+                  </h1>
+                  <p className="text-black dark:text-white/80 text-lg mb-8 max-w-lg">
+                    Explore the OffConnectX world. Buy and sell currencies easily on OffConnectX.
+                  </p>
+                  {!account && (
+                    <button
+                      onClick={connectMetamask}
+                      className="flex items-center bg-[#346f8f] hover:bg-[#185371] dark:bg-[#346f8f]  dark:hover:bg-[#35677c] px-6 py-3 text-white font-medium rounded-full transition-all duration-300"
+                    >
+                      <AiFillPlayCircle className="mr-2 text-xl" />
+                      Connect Wallet
+                    </button>
+                  )}
                 </div>
-                <BsInfoCircle fontSize={17} color="#fff" />
-              </div>
-              <div>
-                <p className="text-white font-light text-sm">
-                {!!account ? (
-                  <div className="container">
-                    <div className="text-white text-base font-semibold">
-                        <span><strong>{account.address.slice(0, 12) + "..."}</strong></span>
-                        <br/>
-                        <span className="small">{account.balance.slice(0, 10) + ((account.balance.length > 4) ? ("...") : (""))} ETH</span>
+      
+                <div className="lg:w-2/5">
+                  <div
+                    className="relative rounded-2xl w-full max-w-md mx-auto h-56 overflow-hidden transition-all duration-700 ease-in-out hover:rotate-1 group"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(97,157,175) 0%, rgba(55,113,145,255) 100%)',
+                      backdropFilter: "blur(8px)",
+                      boxShadow: "0 10px 30px rgba(234, 229, 239, 0.2)",
+                    }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    <div className="absolute top-0 left-0 w-32 h-32 rounded-full bg-white/10 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 group-hover:scale-150"></div>
+                    <div className="absolute bottom-0 right-0 w-40 h-40 rounded-full bg-white/5 translate-x-1/2 translate-y-1/2 transition-all duration-700 group-hover:scale-125"></div>
+      
+                    <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+      
+                    <div className="flex justify-between flex-col h-full p-6 relative z-10">
+                      <div className="flex justify-between items-start">
+                        <div className="w-10 h-10 rounded-full border-2 border-white/80 flex justify-center items-center bg-white/20 backdrop-blur-md shadow-lg">
+                          <SiEthereum fontSize={22} color="#fff" />
+                        </div>
+                        <BsInfoCircle
+                          fontSize={18}
+                          color="#fff"
+                          className="opacity-80 hover:opacity-100 transition-opacity"
+                        />
+                      </div>
+      
+                      <div
+                        className={`transition-all duration-700 ${isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-90"}`}
+                      >
+                        {account ? (
+                          <div className="text-white mb-1">
+                            <span className="font-semibold">{account.address.slice(0, 12) + "..."}</span>
+                            <br />
+                            <span className="text-white/80">
+                              {account.balance.slice(0, 10) + (account.balance.length > 4 ? "..." : "")} ETH
+                            </span>
+                            <p className="font-bold text-2xl mt-2 tracking-wide">{uzarBalance} UZAR</p>
+                          </div>
+                        ) : (
+                          <div className="text-2xl font-bold text-white mb-1">0 UZAR</div>
+                        )}
+                        <div className="text-xs text-white/70 mt-1">User Balance</div>
+                      </div>
                     </div>
                   </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={connectMetamask}
-                      className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                    >
-                      
-                    </button>
-                    )
-                  }
-                </p>
-                <p className="text-white font-semibold text-lg mt-1">
-                {uzarBalance} UZAR
-                </p>
+                </div>
+              </div>
+
+
+              {/* Conditional content based on wallet connection */}
+{!account ? (
+<>
+  {/* Features Section shown when not connected*/}
+  <div className="mb-20">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[
+        {
+          icon: <FaUserShield className="h-8 w-8" />,
+          title: "Reliability",
+          description: "Dependable transaction processing",
+        },
+        {
+          icon: <FaLock className="h-8 w-8" />,
+          title: "Security",
+          description: "Enhanced encryption protocols",
+        },
+        {
+          icon: <FaWifi className="h-8 w-8" />,
+          title: "Offline",
+          description: "Transactions without internet",
+        },
+        { 
+          icon: <FaShieldAlt className="h-8 w-8" />, 
+          title: "Privacy", 
+          description: "Protected personal data" 
+        },
+        {
+          icon: <FaDollarSign className="h-8 w-8" />,
+          title: "Low Fees",
+          description: "Minimal transaction costs",
+        },
+        {
+          icon: <FaBook className="h-8 w-8" />,
+          title: "Zero Knowledge",
+          description: "Advanced cryptographic proofs"
+        },
+      ].map((feature, index) => (
+        <div
+          key={index}
+          className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 flex flex-col items-center justify-center
+                   border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300
+                   hover:bg-white/20 dark:hover:bg-white/10 group"
+        >
+          <div className="mb-4 text-[#346f8f] dark:text-white p-4 bg-white/10 rounded-full group-hover:scale-110 transition-transform duration-300">
+            {feature.icon}
+          </div>
+          <h3 className="text-xl text-[#346f8f] dark:text-white font-medium text-center mb-2">{feature.title}</h3>
+          <p className="text-black dark:text-white/60 text-center">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* How it Works shown only when not connected */}
+  <div className="mb-20">
+    <StepsProgress />
+  </div>
+</>
+) : (
+<>
+  {/* Account Info Section - Only show when connected */}
+  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-[#346f8f]/10 dark:border-white/10 mb-20">
+    <h2 className="text-2xl font-semibold mb-6 text-[#346f8f] dark:text-white">Account Information</h2>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Address:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
+          {account.address.slice(0, 12) + "..." + account.address.slice(-8)}
+        </span>
+      </div>
+      <div className="flex justify-between items-center">
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">ETH Balance:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
+          {account.balance.slice(0, 10) + (account.balance.length > 10 ? "..." : "")} ETH
+        </span>
+      </div>
+      <div className="flex justify-between items-center">
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">UZAR Balance:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{uzarBalance} UZAR</span>
+      </div>
+      <div className="flex justify-between items-center">
+        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Allowance:</span>
+        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{allowance} UZAR</span>
+      </div>
+      <button
+        className="w-full px-6 py-3 bg-[#346f8f] hover:bg-[#185371] text-white font-medium rounded-xl transition-all duration-300"
+        onClick={approveUzar}
+      >
+        Approve UZAR
+      </button>
+    </div>
+  </div>
+
+  {/* QR Code Section shown only when connected */}
+  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-white/10 p-8 mb-20">
+    <h2 className="text-2xl font-semibold mb-8 text-[#346f8f] dark:text-white">Your QR Code</h2>
+
+    <div className="flex flex-col lg:flex-row items-center gap-8">
+      <div className="lg:w-1/2 flex flex-col items-center">
+        {!isScanned ? (
+          <div className="flex flex-col items-center">
+            <div className="bg-white/5 rounded-xl p-6 mb-4 w-64 h-64 flex items-center justify-center relative overflow-hidden shadow-inner border border-gray-200 dark:border-white/10 group">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative transition-transform duration-300 group-hover:scale-105 w-full h-full flex items-center justify-center">
+                {qrCodeURL ? (
+                  <img
+                    src={qrCodeURL || "/placeholder.svg"}
+                    alt="Generated QR Code with Amount"
+                    onClick={handleScan}
+                    className="w-full cursor-pointer hover:opacity-90 transition-opacity rounded-md"
+                  />
+                ) : (
+                  <div className="animate-pulse flex flex-col items-center justify-center w-full h-full">
+                    <div className="h-32 w-32 bg-white/10 rounded"></div>
+                    <div className="mt-4 text-[#346f8f]/40 dark:text-white/40 text-sm">Generating QR code...</div>
+                  </div>
+                )}
               </div>
             </div>
+            <p className="text-[#346f8f]/70 dark:text-white/70 text-sm">Click on the QR Code to simulate scanning.</p>
+
+            {qrCodeURL && !isScanned && (
+              <button
+                className="flex items-center mt-4 px-4 py-2 text-[#346f8f] dark:text-white hover:bg-white/10 rounded-full transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-white/20"
+                onClick={downloadQRCode}
+              >
+                <FaDownload className="mr-2" />
+                Download QR Code
+              </button>
+            )}
           </div>
-          <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-            
-
-            <div className="h-[1px] w-full bg-gray-400 my-2" />
-                <div className="btn-group" style={{ marginBottom: 20 }}>
-                      {
-                          (section == "Deposit") ? (
-                              <button className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Deposit</button>
-                          ) : (
-                              <button onClick={() => { updateSection("Deposit"); }} className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Deposit</button>   
-                          )
-                      }
-                      {
-                          (section == "Deposit") ? (
-                              <button onClick={() => { updateSection("Withdraw"); }} className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button> 
-                          ) : (
-                              <button className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">Withdraw</button>
-                          )
-                      }
-                  </div>
-              
-
-              {
-                (section == "Deposit" && !!account) && (
-                  <div>
-                    {
-                      (!!proofElements) ? (
-                        <div>
-                          <div className="alert alert-success text-white">
-                            <span><strong>Proof of Deposit:</strong></span>
-                            <div className="p-1" style={{ lineHeight: "12px" }}>
-                              <span style={{ fontSize: 10 }} ref={(proofStringEl) => { updateProofStringEl(proofStringEl); }}>{proofElements}</span>
-                            </div>
-                          </div>
-
-                          <div>
-                            <button className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" onClick={copyProof}><span className="small">Copy Proof String</span></button>
-                            {
-                              (!!displayCopiedMessage) && (
-                                <span className="small" style={{ color: 'green' }}><strong> Copied!</strong></span>
-                              )
-                            }
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
-                          <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">Note: All deposits and withdrawals are of the same denomination of 0.1 UZAR.</p>
-                          <button 
-                            className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
-                            onClick={depositEther}
-                            disabled={depositButtonState == ButtonState.Disabled}
-                          ><span className="small">Deposit UZAR</span></button>
-                        </div>
-                      )
-                    }
-                  </div>
-                )
-              }
-
-              {
-                (section != "Deposit" && !!account) && (
-                  <div>
-                    {
-                      (withdrawalSuccessful) ? (
-                      <div>
-                        <div className="alert alert-success p-3">
-                            <div><span><strong>Success!</strong></span></div>
-                            <div style={{ marginTop: 5 }}>
-                              <span className="text-secondary text-white">Withdrawal successful.</span>
-                            </div>
-
-                        </div>
-                      </div>
-                      ) : (
-                      <div>
-                        <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">Note: All deposits and withdrawals are of the same denomination of UZAR.</p>
-                        <div className="form-group">
-                          <textarea className="form-control" style={{ resize: "none" }} ref={(ta) => { updateTextArea(ta); }}></textarea>
-                        </div>
-                        <button 
-                          className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
-                          onClick={withdraw}
-                          disabled={withdrawButtonState == ButtonState.Disabled}
-                        ><span className="small">Withdraw UZAR</span></button>
-                        </div>                  
-                      )
-                    }
-                  </div>
-                )
-              }
-
-
-
-
-
-
-
-{
-                (section != "Deposit" && !!account) && (
-                  <div>
-                    {
-                      (withdrawalSuccessful) ? (
-                      <div>
-                        <div className="alert alert-success p-3">
-                            <div><span><strong>Success!</strong></span></div>
-                            <div style={{ marginTop: 5 }}>
-                              <span className="text-secondary text-white">Withdrawal successful.</span>
-                            </div>
-
-                        </div>
-                      </div>
-                      ) : (
-                      <div>
-                        <div className="form-group">
-                          <textarea className="form-control" style={{ resize: "none" }} ref={(ta) => { updateTextArea(ta); }}></textarea>
-                        </div>
-                        <button 
-                          className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer" 
-                          onClick={tester}
-                         
-                        ><span className="small">Test UZAR Proof</span></button>
-                        </div>                  
-                      )
-                    }
-                  </div>
-                )
-              }
-
-                        
+        ) : (
+          <div className="text-center py-8">
+            <div className="relative mx-auto w-20 h-20 flex items-center justify-center mb-4">
+              <div className="absolute w-full h-full rounded-full bg-red-500/10 animate-ping"></div>
+              <div className="text-red-500 text-6xl font-light relative">X</div>
+            </div>
+            <p className="text-[#346f8f]/70 dark:text-white/70">QR Code has been scanned.</p>
           </div>
-        </div>
+        )}
       </div>
-    </div>
-  );
-};
 
-export default Welcome;
+      <div className="lg:w-1/2 space-y-4">
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => updateSection("Deposit")}
+            className={`flex items-center justify-center gap-2 py-4 px-6 font-medium transition-all duration-300 rounded-xl text-lg
+                    ${
+                      section === "Deposit"
+                        ? "bg-green-600 hover:bg-green-700 text-white"
+                        : "bg-white/10 hover:bg-white/20 text-[#346f8f] dark:text-white"
+                    }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+            Deposit
+          </button>
+
+          <button
+            onClick={() => updateSection("Withdraw")}
+            className={`flex items-center justify-center gap-2 py-4 px-6 font-medium transition-all duration-300 rounded-xl text-lg
+                    ${
+                      section !== "Deposit"
+                        ? "bg-red-600 hover:bg-red-700 text-white"
+                        : "bg-white/10 hover:bg-white/20 text-[#346f8f] dark:text-white"
+                    }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+            Withdraw
+          </button>
+        </div>
+
+        {/* Deposit section */}
+        {section === "Deposit" && !!account && (
+          <div className="mt-6 space-y-4">
+            {!!proofElements ? (
+              <div className="space-y-4">
+                <div className="bg-green-900/20 border border-green-700/50 rounded-lg p-4">
+                  <span className="font-semibold text-green-400 mb-2 block">Proof of Deposit:</span>
+                  <div className="bg-white/5 rounded-md p-3 shadow-inner">
+                    <span
+                      className="text-xs break-all block text-[#346f8f]/80 dark:text-white/80"
+                      ref={(proofStringEl) => {
+                        updateProofStringEl(proofStringEl)
+                      }}
+                    >
+                      {proofElements}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    className="px-6 py-3 bg-[#346f8f] hover:bg-[#3671de] rounded-full text-white font-medium transition-all duration-300"
+                    onClick={copyProof}
+                  >
+                    Copy Proof String
+                  </button>
+                  {displayCopiedMessage && (
+                    <span className="text-green-400 font-medium flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-1"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M20 6L9 17L4 12"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      Copied!
+                    </span>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="p-4 bg-blue-900/20 rounded-lg border border-blue-700/50">
+                  <p className="text-[#346f8f]/90 dark:text-white/90">
+                    All deposits and withdrawals are of the same denomination of 0.1 UZAR.
+                  </p>
+                </div>
+                <button
+                  className="w-full py-3 px-6 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={depositEther}
+                  disabled={depositButtonState === ButtonState.Disabled}
+                >
+                  Deposit UZAR
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Withdraw section */}
+        {section !== "Deposit" && !!account && (
+          <div className="mt-6">
+            {withdrawalSuccessful ? (
+              <div className="                                                                                                                                                                                                                                                                                                           border border-green-700/50 rounded-lg p-5">
+                <div className="flex items-center mb-2">
+                  <svg
+                    className="w-5 h-5 mr-2 text-green-400"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22 11.0818V12.0018C21.9988 14.1582 21.3005 16.2564 20.0093 17.9819C18.7182 19.7075 16.9033 20.9727 14.8354 21.5839C12.7674 22.1951 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.86182"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M22 4L12 14.01L9 11.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="font-semibold text-green-400">Success!</span>
+                </div>
+                <span className="block text-green-300">Withdrawal successfully completed.</span>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="p-4 bg-blue-900/20 rounded-lg border border-blue-700/50">
+                  <p className="text-[#346f8f]/90 dark:text-white/90">
+                    All deposits and withdrawals are of the same denomination of UZAR.
+                  </p>
+                </div>
+
+                <textarea
+                  className="w-full p-4 rounded-lg bg-white/5 border border-gray-200 dark:border-white/20 text-[#346f8f] dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-[#346f8f] shadow-inner"
+                  rows={4}
+                  placeholder="Paste your proof here..."
+                  ref={(ta) => {
+                    updateTextArea(ta)
+                  }}
+                />
+
+                <div className="flex gap-3">
+                  <button
+                    className="flex-1 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={withdraw}
+                    disabled={withdrawButtonState === ButtonState.Disabled}
+                  >
+                    Withdraw UZAR
+                  </button>
+                  <button
+                    onClick={tester}
+                    className="flex-1 px-6 py-3 border border-gray-200 dark:border-white/20 text-[#346f8f] dark:text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300"
+                  >
+                    Test UZAR Proof
+                    </button>
+
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              </>
+            )}
+            </div>
+          </div>
+      
+        )
+      }
+      
+export default Welcome
