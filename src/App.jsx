@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { Navbar, Footer, Services, Onramp, Welcome, SplashScreen, StepsProgress } from "./components";
+import { Navbar, Footer, Services, Onramp, Welcome, SplashScreen } from "./components";
 
 const App = () => {
   const [showSplash, setShowSplash]= useState(true);
