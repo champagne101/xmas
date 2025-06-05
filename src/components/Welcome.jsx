@@ -17,6 +17,7 @@ import UzarTokenABI from "../json/abizar.json";
 import QRCode from "qrcode";
 // import QrReader from "react-qr-reader";
 import StepsProgress from "./StepsProgress.jsx";
+import Modal from "./Modal.jsx";
 
 
 const UZAR_TOKEN_ADDRESS = "0xBf715EB900bbEAa2C7e136E9c2A0C6AED93E8aeb"; // lisk sepolia // '0x5315E2c1B45f58c468dE6a31eBF8ae9f06790F32'; sepolia eth 11155111
@@ -551,7 +552,11 @@ const Welcome = () => {
                   <p className="text-black dark:text-white/80 text-lg mb-8 max-w-lg">
                     Explore the OffConnectX world. Buy and sell currencies easily on OffConnectX.
                   </p>
+
+                  {/* connect wallet button and modal*/}
+
                   {!account && (
+                    <div className="flex items-center space-x-4">
                     <button
                       onClick={connectMetamask}
                       className="flex items-center bg-[#346f8f] hover:bg-[#185371] dark:bg-[#346f8f]  dark:hover:bg-[#35677c] px-6 py-3 text-white font-medium rounded-full transition-all duration-300"
@@ -559,6 +564,12 @@ const Welcome = () => {
                       <AiFillPlayCircle className="mr-2 text-xl" />
                       Connect Wallet
                     </button>
+
+
+                     {/* calling modal */}
+                    <Modal />
+                    </div>
+
                   )}
                 </div>
       
