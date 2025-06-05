@@ -537,6 +537,68 @@ const Welcome = () => {
 
   const [isHovered, setIsHovered] = useState(false);
 
+  // DEMO STATE VARIABLES FOR TRANSFER UZAR SECTIONS
+  const [transferMethod, setTransferMethod] = useState("crypto");
+  const [recipientAddress, setRecipientAddress] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
+  const [transferAmount, setTransferAmount] = useState("");
+  const [transferButtonState, setTransferButtonState] = useState(ButtonState.Enabled);
+
+  const sendUzarToCrypto = async () => {
+    try {
+      setTransferButtonState(ButtonState.Disabled);
+      
+      if (!recipientAddress || !transferAmount || transferAmount <= 0) {
+        alert("Please enter a valid recipient address and amount");
+        return;
+      }
+      
+      
+      //  crypto address transfer logic demo here
+      console.log("Transferring", transferAmount, "UZAR to address:", recipientAddress);
+      
+      
+      // reset form on success
+      setRecipientAddress("");
+      setTransferAmount("");
+      
+      alert("Transfer successful!");
+      
+    } catch (error) {
+      console.error("Transfer failed:", error);
+      alert("Transfer failed: " + error.message);
+    } finally {
+      setTransferButtonState(ButtonState.Enabled);
+    }
+  };
+
+  const sendUzarToEmail = async () => {
+    try {
+      setTransferButtonState(ButtonState.Disabled);
+      
+      if (!recipientEmail || !transferAmount || transferAmount <= 0) {
+        alert("Please enter a valid email address and amount");
+        return;
+      }
+      
+      //  email transfer logic demo here
+      console.log("Transferring", transferAmount, "UZAR to email:", recipientEmail);
+      
+    
+      // reset form on success
+      setRecipientEmail("");
+      setTransferAmount("");
+      
+      alert("Transfer initiated! The recipient will be notified via email.");
+      
+    } catch (error) {
+      console.error("Email transfer failed:", error);
+      alert("Transfer failed: " + error.message);
+    } finally {
+      setTransferButtonState(ButtonState.Enabled);
+    }
+  };
+
 
 
   return (
@@ -686,35 +748,167 @@ const Welcome = () => {
 ) : (
 <>
   {/* Account Info Section - Only show when connected */}
-  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-[#346f8f]/10 dark:border-white/10 mb-20">
-    <h2 className="text-2xl font-semibold mb-6 text-[#346f8f] dark:text-white">Account Information</h2>
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Address:</span>
-        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
-          {account.address.slice(0, 12) + "..." + account.address.slice(-8)}
-        </span>
+  <div className="flex flex-col lg:flex-row lg:gap-8">
+    {/* Approve UZAR section */}
+    <div className="lg:w-1/2">
+      
+    <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-[#346f8f]/10 dark:border-white/10 mb-20">
+      <h2 className="text-2xl font-semibold mb-6 text-[#346f8f] dark:text-white">Account Information</h2>
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Address:</span>
+          <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
+            {account.address.slice(0, 12) + "..." + account.address.slice(-8)}
+          </span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-lg text-[#346f8f]/80 dark:text-white/80">ETH Balance:</span>
+          <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
+            {account.balance.slice(0, 10) + (account.balance.length > 10 ? "..." : "")} ETH
+          </span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-lg text-[#346f8f]/80 dark:text-white/80">UZAR Balance:</span>
+          <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{uzarBalance} UZAR</span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Allowance:</span>
+          <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{allowance} UZAR</span>
+        </div>
+        <button
+          className="w-full px-6 py-3 bg-[#346f8f] hover:bg-[#185371] text-white font-medium rounded-xl transition-all duration-300"
+          onClick={approveUzar}
+        >
+          Approve UZAR
+        </button>
       </div>
-      <div className="flex justify-between items-center">
-        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">ETH Balance:</span>
-        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">
-          {account.balance.slice(0, 10) + (account.balance.length > 10 ? "..." : "")} ETH
-        </span>
+    </div>
+    </div>
+
+
+    {/* Transfer UZAR section */}
+    <div className="lg:w-1/2">
+    <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-[#346f8f]/10 dark:border-white/10 mb-20">
+      <h2 className="text-2xl font-semibold mb-6 text-[#346f8f] dark:text-white">Transfer UZAR</h2>
+      
+      {/* transfer method selection */}
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="flex gap-4">
+          <button
+            onClick={() => setTransferMethod("crypto")}
+            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 font-medium transition-all duration-300 rounded-xl text-base
+                    ${
+                      transferMethod === "crypto"
+                        ? "bg-[#346f8f] hover:bg-[#185371] text-white"
+                        : "bg-white/10 hover:bg-white/20 text-[#346f8f] dark:text-white"
+                    }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Crypto Address
+          </button>
+
+          <button
+            onClick={() => setTransferMethod("email")}
+            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 font-medium transition-all duration-300 rounded-xl text-base
+                    ${
+                      transferMethod === "email"
+                        ? "bg-[#346f8f] hover:bg-[#185371] text-white"
+                        : "bg-white/10 hover:bg-white/20 text-[#346f8f] dark:text-white"
+                    }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Email Address
+          </button>
+        </div>
       </div>
-      <div className="flex justify-between items-center">
-        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">UZAR Balance:</span>
-        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{uzarBalance} UZAR</span>
+
+      {/* transfer form */}
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <label className="block text-lg text-[#346f8f]/80 dark:text-white/80">
+            {transferMethod === "crypto" ? "Recipient Address:" : "Email Address:"}
+          </label>
+          <input
+            type={transferMethod === "crypto" ? "text" : "email"}
+            className="w-full p-4 rounded-lg bg-white/5 border border-gray-200 dark:border-white/20 text-[#346f8f] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#346f8f] shadow-inner"
+            placeholder={transferMethod === "crypto" ? "0x1234567890abcdef..." : "recipient@example.com"}
+            value={transferMethod === "crypto" ? recipientAddress : recipientEmail}
+            onChange={(e) => {
+              if (transferMethod === "crypto") {
+                setRecipientAddress(e.target.value);
+              } else {
+                setRecipientEmail(e.target.value);
+              }
+            }}
+          />
+        </div>
+
+        {/* amount field */}
+        <div className="space-y-2">
+      <label className="block text-lg text-[#346f8f]/80 dark:text-white/80">Amount (UZAR):</label>
+      <input
+        type="number"
+        step="0.01"
+        min="0"
+        className="w-full p-4 rounded-lg bg-white/5 border border-gray-200 dark:border-white/20 text-[#346f8f] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#346f8f] shadow-inner"
+        placeholder="0.00"
+        value={transferAmount}
+        onChange={(e) => setTransferAmount(e.target.value)}
+      />
+    </div>
+
+        {/* information box */}
+        <div className="p-4 bg-blue-900/20 rounded-lg border border-blue-700/50">
+          <p className="text-[#346f8f]/90 dark:text-white/90">
+            {transferMethod === "crypto" 
+              ? "Enter a valid Ethereum address to transfer UZAR tokens directly on-chain."
+              : "Transfer UZAR to an email address. The recipient will be notified and can claim their tokens."
+            }
+          </p>
+        </div>
+
+        {/* Send button */}
+        <button
+          className="w-full py-3 px-6 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={transferMethod === "crypto" ? sendUzarToCrypto : sendUzarToEmail}
+          disabled={
+            !transferAmount || 
+            transferAmount <= 0 || 
+            (transferMethod === "crypto" ? !recipientAddress : !recipientEmail) ||
+            transferButtonState === ButtonState.Disabled
+          }
+        >
+          <div className="flex items-center justify-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+            Send UZAR
+          </div>
+        </button>
       </div>
-      <div className="flex justify-between items-center">
-        <span className="text-lg text-[#346f8f]/80 dark:text-white/80">Allowance:</span>
-        <span className="text-lg font-semibold text-[#346f8f] dark:text-white">{allowance} UZAR</span>
-      </div>
-      <button
-        className="w-full px-6 py-3 bg-[#346f8f] hover:bg-[#185371] text-white font-medium rounded-xl transition-all duration-300"
-        onClick={approveUzar}
-      >
-        Approve UZAR
-      </button>
+    </div>
     </div>
   </div>
 
