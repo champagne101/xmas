@@ -3,7 +3,8 @@ import { AiFillPlayCircle } from 'react-icons/ai';
 
 const Modal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [step, setStep] = useState(1); // 1: email, 2: otp, 3: wallet
+  const [method, setMethod] = useState(null); // 'email' or 'phone'
+  const [step, setStep] = useState(0); // 1: email, 2: otp, 3: wallet
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +41,8 @@ const Modal = () => {
 
   const openModal = () => {
     setIsOpen(true);
-    setStep(1);
+    setStep(0);
+    setMethod(null);
     setEmail('');
     setOtp('');
   };
@@ -122,6 +124,7 @@ const Modal = () => {
 
                 <div className="flex items-center justify-between p-6 border-b border-gray-200/20 dark:border-gray-600/20 relative z-10">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {step === 0 && 'Choose method '}
                     {step === 1 && 'Enter Email'}
                     {step === 2 && 'Verify OTP'}
                     {step === 3 && 'Connect Wallet'}
@@ -139,6 +142,34 @@ const Modal = () => {
 
                 {/* Modal Body */}
                 <div className="p-6 space-y-6 relative z-10">
+                  {step === 0 && (
+                    <div className="space-y-4 text-center">
+                      <p className="text-base text-gray-600 dark:text-gray-300">
+                        How would you like to connect?
+                      </p>
+                      <div className="flex justify-center gap-4">
+                        <button 
+                          onClick={() => {
+                            setMethod('email');
+                            setStep(1);
+                          }}
+                          className="px-5 py-2.5 bg-[#346f8f] text-white rounded-lg hover:bg-[#185371] transition-all"
+                          >
+                          With Email
+                        </button>
+                        <button
+                        onClick={() => {
+                            setMethod('phone');
+                            setStep(1);
+                          }}
+                          className="px-5 py-2.5 bg-[#346f8f] text-white rounded-lg hover:bg-[#185371] transition-all"
+                        >
+                        With Phone
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   {step === 1 && (
                     <div className="space-y-4">
                       <p className="text-base text-gray-600 dark:text-gray-300">
