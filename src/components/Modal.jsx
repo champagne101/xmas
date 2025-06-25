@@ -5,7 +5,6 @@ const Modal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [method, setMethod] = useState(null); // 'email' or 'phone'
   const [step, setStep] = useState(0); // 1: email, 2: otp, 3: wallet
-  const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
   const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -64,18 +63,38 @@ const Modal = () => {
 
   const handleSendOTP = async () => {
     setIsLoading(true);
-    // simulating API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsLoading(false);
-    setStep(2);
+    
+    try {
+      // Setup reCAPTCHA (required by Firebase)
+      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+        size: 'invisible',
+        callback: () => console.log('reCAPTCHA solved'),
+      }, auth);
+
+      const appVerifier = window.recaptchaVerifier;
+
+      const confirmationResult = await signInWithPhoneNumber(auth, contact, appVerifier);
+      window.confirmationResult = confirmationResult; // store it for later verification
+      setStep(2);
+    } catch (err) {
+      alert(err.message || 'Failed to send OTP');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleVerifyOTP = async () => {
     setIsLoading(true);
-    // simulating API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsLoading(false);
-    setStep(3);
+      try {
+      const result = await window.confirmationResult.confirm(otp);
+      // User is signed in.
+      console.log('User info:', result.user);
+      setStep(3);
+    } catch (err) {
+      alert('Incorrect code');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleConnectWallet = async () => {
@@ -95,6 +114,8 @@ const isContactValid = method === 'email'
   return (
     <div className={isDark ? 'dark' : ''}>
         {/* <div className="max-w-7xl mx-auto mb-8"> */}
+          <div id="recaptcha-container"></div>
+
           <button
             onClick={openModal}
             className="flex items-center bg-[#346f8f] hover:bg-[#185371] dark:bg-[#346f8f]  dark:hover:bg-[#35677c] px-6 py-3 text-white font-medium rounded-full transition-all duration-300"
