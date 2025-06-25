@@ -173,17 +173,20 @@ const Modal = () => {
                   {step === 1 && (
                     <div className="space-y-4">
                       <p className="text-base text-gray-600 dark:text-gray-300">
-                        Enter your email address to get started with wallet connection.
                       </p>
+                      {method === 'email' 
+                        ? 'Enter your email address to get started with wallet connection.'
+                        : 'Enter your phone number to get started with wallet connection.'}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Email Address
+                        {method === 'email' ? 'Email Address' : 'Phone Number'}
                         </label>
                         <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email"
+                          type={method === 'email' ? 'email' : 'tel'}
+                          value={method === 'email' ? email : otp}                          
+                          onChange={(e) =>
+                          method === 'email' ? setEmail(e.target.value) : setEmail(e.target.value)}
+                          placeholder={method === 'email' ? 'Enter your email' : 'e.g. +27123456789'}
                           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#346f8f] focus:border-transparent backdrop-blur-sm transition-all duration-200"
                         />
                       </div>
