@@ -1,27 +1,48 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
+// console.log('Firebase Config Check:', {
+//   apiKey: import.meta.env.VITE_APP_API_KEY ? 'Set' : 'Missing',
+//   authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN ? 'Set' : 'Missing',
+//   projectId: import.meta.env.VITE_APP_PROJECT_ID ? 'Set' : 'Missing',
+//   storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET ? 'Set' : 'Missing',
+//   messagingSenderId: import.meta.env.VITE_APP_MESSAGING_SENDER_ID ? 'Set' : 'Missing',
+//   appId: import.meta.env.VITE_APP_APP_ID ? 'Set' : 'Missing',
+// });
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  apiKey: import.meta.env.VITE_APP_API_KEY,
+  authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_APP_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_APP_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_APP_ID,
+  measurementId: import.meta.env.VITE_APP_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-const auth = getAuth(app);
+// Validating the required fields
+const requiredFields = ['apiKey', 'authDomain', 'projectId', 'appId'];
+const missingFields = requiredFields.filter(field => !firebaseConfig[field]);
 
-export { auth, RecaptchaVerifier, signInWithPhoneNumber };
+if (missingFields.length > 0) {
+  console.error('Missing Firebase configuration fields:', missingFields);
+  throw new Error(`Missing Firebase configuration: ${missingFields.join(', ')}`);
+}
+
+// Initialize Firebase
+let app;
+let auth;
+
+
+// for debugging
+try {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  console.log('Firebase initialized successfully');
+} catch (error) {
+  console.error('Firebase initialization error:', error);
+  throw error;
+}
+
+export default app;
+export { auth };
