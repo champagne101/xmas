@@ -6,6 +6,7 @@ const Modal = () => {
   const [method, setMethod] = useState(null); // 'email' or 'phone'
   const [step, setStep] = useState(0); // 1: email, 2: otp, 3: wallet
   const [email, setEmail] = useState('');
+  const [contact, setContact] = useState('');
   const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -43,14 +44,15 @@ const Modal = () => {
     setIsOpen(true);
     setStep(0);
     setMethod(null);
-    setEmail('');
+    setContact('');
+
     setOtp('');
   };
 
   const closeModal = () => {
     setIsOpen(false);
     setStep(1);
-    setEmail('');
+    setContact('');
     setOtp('');
   };
 
@@ -85,7 +87,9 @@ const Modal = () => {
     alert('Wallet connected successfully!');
   };
 
-  const isEmailValid = email.includes('@') && email.includes('.');
+const isContactValid = method === 'email'
+  ? contact.includes('@') && contact.includes('.')
+  : /^\+\d{10,15}$/.test(contact); //for phone validation
   const isOTPValid = otp.length === 6 && /^\d{6}$/.test(otp);
 
   return (
@@ -183,9 +187,8 @@ const Modal = () => {
                         </label>
                         <input
                           type={method === 'email' ? 'email' : 'tel'}
-                          value={method === 'email' ? email : otp}                          
-                          onChange={(e) =>
-                          method === 'email' ? setEmail(e.target.value) : setEmail(e.target.value)}
+                          value={contact}                          
+                          onChange={(e) => setContact(e.target.value)}
                           placeholder={method === 'email' ? 'Enter your email' : 'e.g. +27123456789'}
                           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#346f8f] focus:border-transparent backdrop-blur-sm transition-all duration-200"
                         />
@@ -196,7 +199,7 @@ const Modal = () => {
                   {step === 2 && (
                     <div className="space-y-4">
                       <p className="text-base text-gray-600 dark:text-gray-300">
-                        We've sent a verification code to <strong>{email}</strong>. Please enter the 6-digit code below.
+                        We've sent a verification code to <strong>{contact}</strong>. Please enter the 6-digit code below.
                       </p>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -240,7 +243,7 @@ const Modal = () => {
                       </button>
                       <button
                         onClick={handleSendOTP}
-                        disabled={!isEmailValid || isLoading}
+                        disabled={!isContactValid || isLoading}
                         className="px-5 py-2.5 text-sm font-medium text-white bg-[#346f8f] hover:bg-[#185371] disabled:bg-gray-400 disabled:cursor-not-allowed rounded-lg focus:ring-4 focus:ring-blue-300 transition-all duration-200 flex items-center gap-2"
                       >
                         {isLoading ? (
