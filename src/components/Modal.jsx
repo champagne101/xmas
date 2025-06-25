@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AiFillPlayCircle } from 'react-icons/ai';
+import { auth, RecaptchaVerifier, signInWithPhoneNumber } from '../firebase.config';
+
 
 const Modal = () => {
   const [isOpen, setIsOpen] = useState(false);
