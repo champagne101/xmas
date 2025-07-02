@@ -16,8 +16,14 @@ const Modal = () => {
   const [confirmationResult, setConfirmationResult] = useState(null);
   
   // using usRef to store recaptcha verifier
+  const [recaptchaId, setRecaptchaId] = useState(null);
   const recaptchaVerifierRef = useRef(null);
-  const recaptchaContainerRef = useRef('recaptcha-container-' + Date.now());
+  // const recaptchaContainerRef = useRef('recaptcha-container-' + Date.now());
+  useEffect(() => {
+  if (typeof window !== 'undefined') {
+    setRecaptchaId('recaptcha-container-' + Date.now());
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -66,14 +72,6 @@ const Modal = () => {
       recaptchaVerifierRef.current = null;
     }
     
-    // here just cleaning up the DOM element if it exists
-    if (recaptchaContainerRef.current) {
-      const container = document.getElementById(recaptchaContainerRef.current);
-      if (container) {
-        container.remove(); // remove from DOM 
-      }
-      recaptchaContainerRef.current = null;
-    }
   };
 
   const openModal = () => {
@@ -104,29 +102,24 @@ const Modal = () => {
 
   // initializing reCAPTCHA with proper cleanup
   const initializeRecaptcha = () => {
-    if (!auth) {
-      console.error('Auth not initialized');
+    if (!auth || !recaptchaId) {
+      console.error('Auth or Recaptcha ID not ready');
       return null;
     }
 
-    try {
-      // cleaning up any existing verifier first
-      cleanupRecaptcha();
+    // cleaning up any existing verifier first
+    cleanupRecaptcha();
+    const containerId = recaptchaId;
+
+    // try {
       
-      // creating new container ID for each initialization
-      const containerId = 'recaptcha-container-' + Date.now();
-      recaptchaContainerRef.current = containerId;
 
       // ensuring the container exists in DOM
-      if (typeof document !== 'undefined') {
-          let container = document.getElementById(containerId);
-
-          if (!container) {
-            container = document.createElement('div');
-            container.id = containerId;
-            container.style.display = 'none';
-            document.body.appendChild(container);
-          }
+      if (!document.getElementById(containerId)) {
+          const container = document.createElement('div');
+          container.id = containerId;
+          container.style.display = 'none';
+          document.body.appendChild(container);
       }
       console.log('Creating reCAPTCHA verifier with container:', containerId);
 
@@ -150,10 +143,6 @@ const Modal = () => {
       recaptchaVerifierRef.current = verifier;
       console.log('reCAPTCHA verifier created successfully');
       return verifier;
-    } catch (error) {
-      console.error('Failed to initialize reCAPTCHA:', error);
-      return null;
-    }
   };
 
   const handleSendOTP = async () => {
@@ -293,10 +282,18 @@ const Modal = () => {
   return (
     <div className={isDark ? 'dark' : ''}>
       {/* Dynamic reCAPTCHA container */}
-      <div 
+      {/* <div 
         id={recaptchaContainerRef.current} 
         style={{ display: 'none' }}
-      ></div>
+      ></div> */}
+
+      {recaptchaId && (
+      <div 
+        id={recaptchaId} 
+        style={{ display: 'none' }}
+        ></div>
+      )}
+
       <button
         onClick={openModal}
         className="flex items-center bg-[#346f8f] hover:bg-[#185371] dark:bg-[#346f8f] dark:hover:bg-[#35677c] px-6 py-3 text-white font-medium rounded-full transition-all duration-300"

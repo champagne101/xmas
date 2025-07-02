@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import light from "../../public/images/light.png";
-import dark from "../../public/images/dark.png";
 
 const SplashScreen = ({ onFinish }) => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -36,7 +34,7 @@ const SplashScreen = ({ onFinish }) => {
 
     const bgColor = isDarkMode ? 'bg-[#244f6b]' : 'bg-[#d8dede]'; 
     const textColor = isDarkMode ? 'text-[#fafcfe]' : 'text-[#346f8f]';
-    const logoSrc = isDarkMode ? dark : light;
+    const logoSrc = isDarkMode ? "/images/dark.png" : "/images/light.png";
 
     return (
         <motion.div 

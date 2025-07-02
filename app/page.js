@@ -17,7 +17,7 @@ const App = () => {
     darkModeQuery.addEventListener('change', listener);
 
     const script = document.createElement('script');
-    script.src = '/js/snarkjs.min.js';
+    script.src = '/files/js/snarkjs.min.js';
     script.async = true;
     script.onload = () => {
       console.log('snarkjs loaded successfully');
