@@ -36,21 +36,21 @@ const Services = () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <ServiceCard
           color="bg-[#2952E3]"
-          title="Security gurantee"
+          title="Security Guranteed"
           icon={<BsShieldFillCheck fontSize={21} className="" />}
-          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
+          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products."
         />
         <ServiceCard
           color="bg-[#8945F8]"
-          title="Best exchange rates"
+          title="Low Transaction Fees"
           icon={<BiSearchAlt fontSize={21} className="" />}
-          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
+          subtitle="We offer some of the lowest and most affordable transaction fees to make crypto accessible to everyone."
         />
         <ServiceCard
           color="bg-[#F84550]"
-          title="Fastest transactions"
+          title="Offline transactions"
           icon={<RiHeart2Fill fontSize={21} className="" />}
-          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
+          subtitle="Send and receive crypto even when you're offline. Fast, secure, and designed for real-world usage."
         />
         </div>
       </div>
