@@ -288,7 +288,7 @@ const OnrampPage = () => {
           Enter One-Time Password (OTP)
         </h2>
         <p className="text-[#346f8f]/70 dark:text-white/70 mb-6">
-          We've sent a 6-digit verification code to {formData.contactInfo}
+          We've sent a 6-digit verification code to <strong>{formData.contactInfo}</strong> 
         </p>
       </div>
 
@@ -354,10 +354,10 @@ const OnrampPage = () => {
           </div>
         </div>
 
-        <div className="border-t border-[#346f8f]/20 dark:border-[#fafcfe]/20 pt-4">
+        {/* <div className="border-t border-[#346f8f]/20 dark:border-[#fafcfe]/20 pt-4">
           <span className="text-sm text-[#346f8f]/70 dark:text-white/70">Contact:</span>
           <p className="font-medium text-[#346f8f] dark:text-[#fafcfe]">{formData.contactInfo}</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
