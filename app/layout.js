@@ -17,6 +17,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={openSans.variable}>
+      <head>
+         {/* favicon for light mode */}
+        <link rel="icon" type="image/png" href="/favicon-light.png" media="(prefers-color-scheme: light)" />
+
+        {/* favicon for dark mode */}
+        <link rel="icon" type="image/png" href="/favicon-dark.png" media="(prefers-color-scheme: dark)" />
+
+        {/* fallback favicon */}
+        <link rel="icon" type="image/png" href="/favicon-dark.png" />
+      </head>
       <body className="font-sans antialiased bg-[#d8dede] text-[#346f8f] dark:bg-[#244f6b] dark:text-[#fafcfe]">
         <TransactionsProvider>
           <Navbar />
