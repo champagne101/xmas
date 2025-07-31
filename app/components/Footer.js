@@ -13,11 +13,11 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div className="md:col-span-1">
-          <div className="flex items-center mb-4">
+          <Link href="/" className="flex items-center mb-4">
             <Image src={light} alt="logo-light" className="w-12 block dark:hidden" />
             <Image src={dark} alt="logo-dark" className="w-12 hidden dark:block" /> 
             <span className="ml-2 font-bold text-[#346f8f] dark:text-white">OffConnectX</span>
-          </div>
+          </Link>
           <p className="text-[#4681ee]/70 dark:text-white/70 text-sm">Secure, fast, and reliable cryptocurrency platform.</p>
         </div>
 
@@ -35,9 +35,6 @@ const Footer = () => (
           <h3 className="text-[#346f8f] dark:text-white font-medium mb-4">Company</h3>
           <ul className="space-y-2">
             <li><Link href="#" className="text-[#346f8f]/70 dark:text-white/70 hover:text-[#346f8f] dark:hover:text-white transition-colors">About</Link></li>
-            {/* <li><a href="#" className="text-[#346f8f]/70 dark:text-white/70 hover:text-[#346f8f] dark:hover:text-white transition-colors">Careers</a></li>
-            <li><a href="#" className="text-[#346f8f]/70 dark:text-white/70 hover:text-[#346f8f] dark:hover:text-white transition-colors">Blog</a></li>
-            <li><a href="#" className="text-[#346f8f]/70 dark:text-white/70 hover:text-[#346f8f] dark:hover:text-white transition-colors">Press</a></li> */}
           </ul>
         </div>
 
@@ -50,7 +47,6 @@ const Footer = () => (
             </Link>
           </div>
           <p className="text-[#346f8f]/70 dark:text-white/70 text-sm">Come join us and hear for the unexpected miracle</p>
-          {/* <p className=" text-sm text-center font-medium mt-2">info@offconnectx.com</p> */}
         </div>
     </div>
 

@@ -7,6 +7,8 @@ import Link from "next/link";
 import Image from "next/image";
 import light from "../../public/images/light.png";
 import dark from "../../public/images/dark.png";
+import { useRouter } from "next/navigation";
+
 
 const NavBarItem = ({ title, classprops }) => (
   <li className={`mx-4 cursor-pointer px-4 py-2 text-[#346f8f]/80 dark:text-white/80 hover:text-[#346f8f] dark:hover:text-white font-medium transition-all duration-300 hover:bg-white/50 dark:hover:bg-white/10 rounded-full ${classprops}`}>
@@ -16,20 +18,23 @@ const NavBarItem = ({ title, classprops }) => (
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
+  const router = useRouter();
+  const menuItems = ["Transfer", "Exchange", "Onramp", "Wallets"];
+
 
   return (
-    <nav className="w-full py-6 px-4 sm:px-6 lg:px-8">
+    <nav className=" w-full py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <div className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image src={light} alt="logo-light" className="w-12 cursor-pointer block dark:hidden" />
             <Image src={dark} alt="logo-dark" className="w-12 cursor-pointer hidden dark:block" />
             <span className="ml-2 font-bold text-[#346f8f] dark:text-white">OffConnectX</span>
-          </div>
+          </Link>
       </div>
       
       <ul className=" md:flex hidden items-center space-x-2 ">
-        {["Transfer", "Exchange", "Onramp", "Wallets"].map((item, index) => (
+        {menuItems.map((item, index) => (
           <NavBarItem key={item + index} title={item} />
         ))}
         <button className="bg-[#346f8f] dark:bg-[#346f8f] hover:bg-[#2c6889] dark:hover:bg-[#35677c] py-2 px-6 text-white font-medium rounded-full transition-all duration-300 
@@ -58,12 +63,14 @@ const Navbar = () => {
               />
             </div>
             <ul className="space-y-4">
-              {["Transfer", "Exchange", "Onramp", "Wallets"].map((item, index) => (
+              {menuItems.map((item, index) => (
                 <li 
                   key={item + index} 
                   className="px-4 py-2 text-[#346f8f]/80 dark:text-white/80 hover:text-[#346f8f] dark:hover:text-white font-medium transition-all duration-300 hover:bg-white/20 dark:hover:bg-white/10 rounded-full cursor-pointer"
                 >
+                  <Link href={`/${item.toLowerCase()}`} onClick={() => setToggleMenu(false)}>
                   {item}
+                  </Link>
                 </li>
               ))}
               <li>

@@ -5,8 +5,24 @@ import { AnimatePresence } from 'framer-motion';
 import { Navbar, Footer, Services, Welcome, SplashScreen } from "./components";
 
 const App = () => {
-  const [showSplash, setShowSplash]= useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('splashShown');
+    }
+    return true;
+  });
+
   const [isDarkMode, setIsDarkMode] = useState(false);
+  useEffect(() => {
+    if (!showSplash) return;
+
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+      sessionStorage.setItem('splashShown', 'true');
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [showSplash]);
 
 
   useEffect(() => {
@@ -53,7 +69,7 @@ const App = () => {
         style={{ pointerEvents: showSplash ? "none" : "auto"}}>
 
           <div className=" bg-[#d8dede] text-[#346f8f] dark:bg-[#244f6b] dark:text-[#fafcfe]">
-          <Navbar />
+          {/* <Navbar /> */}
           <Welcome /> 
           {/* <Onramp /> */}
         </div>
